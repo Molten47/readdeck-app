@@ -1,0 +1,139 @@
+/* ── Search Section ───────────────────────────────────────────── */
+.search-section {
+  background-color: #F5F0E8;
+  padding: 4rem 5rem;
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.search-section__header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.search-section__eyebrow {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #E8622A;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.search-section__title {
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: #1A1410;
+  letter-spacing: -0.02em;
+}
+
+.search-section__subtitle {
+  color: #8B5E3C;
+  font-size: 1rem;
+  margin-top: 0.25rem;
+}
+
+/* ── Address input bar ────────────────────────────────────────── */
+.search-bar {
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  border: 2px solid #2A2118;
+  border-radius: 1rem;
+  padding: 0 1.5rem;
+  height: 68px;
+  max-width: 640px;
+  gap: 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.search-bar:focus-within {
+  border-color: #E8622A;
+  box-shadow: 0 0 0 4px #E8622A18;
+}
+
+.search-bar__icon {
+  color: #E8622A;
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+}
+
+.search-bar__input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  color: #1A1410;
+  background: transparent;
+  font-weight: 500;
+}
+
+.search-bar__input::placeholder {
+  color: #8B5E3C;
+  font-weight: 400;
+}
+
+.search-bar__btn {
+  background-color: #E8622A;
+  color: white;
+  font-weight: 700;
+  font-size: 0.9rem;
+  padding: 0.6rem 1.5rem;
+  border-radius: 0.6rem;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.search-bar__btn:hover {
+  opacity: 0.9;
+}
+
+/* ── Category pills ───────────────────────────────────────────── */
+.search-categories {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.search-category-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 1.25rem;
+  border-radius: 2rem;
+  border: 1.5px solid #2A2118;
+  background: transparent;
+  color: #1A1410;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.search-category-pill:hover,
+.search-category-pill.active {
+  background-color: #E8622A;
+  border-color: #E8622A;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .search-section {
+    padding: 3rem 1.5rem;
+  }
+
+  .search-section__title {
+    font-size: 1.75rem;
+  }
+
+  .search-bar {
+    height: 60px;
+    padding: 0 1rem;
+  }
+}

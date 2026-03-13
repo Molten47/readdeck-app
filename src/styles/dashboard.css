@@ -1,0 +1,78 @@
+/* ── Dashboard Layout ─────────────────────────────────────────── */
+.dashboard-container {
+  min-height: 100vh;
+  background-color: #0F0C09;
+  color: #F5F0E8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+/* ── Welcome ──────────────────────────────────────────────────── */
+.dashboard-welcome {
+  text-align: center;
+}
+
+.dashboard-welcome h1 {
+  font-size: 2.25rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.02em;
+}
+
+.dashboard-welcome h1 span {
+  color: #E8622A;
+}
+
+.dashboard-welcome p {
+  color: #8A7968;
+  font-size: 0.9rem;
+}
+
+/* ── Card ─────────────────────────────────────────────────────── */
+.dashboard-card {
+  background-color: #1A1410;
+  border: 1px solid #2A2118;
+  border-radius: 1rem;
+  padding: 2rem 3rem;
+  text-align: center;
+  min-width: 260px;
+}
+
+.dashboard-card__label {
+  color: #8A7968;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.5rem;
+}
+
+.dashboard-card__value {
+  color: #F5F0E8;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+/* ── Sign out button ──────────────────────────────────────────── */
+.dashboard-signout {
+  margin-top: 0.5rem;
+  padding: 0.875rem 2.5rem;
+  border-radius: 0.75rem;
+  border: 1px solid #2A2118;
+  background: transparent;
+  color: #8A7968;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  letter-spacing: 0.02em;
+}
+
+.dashboard-signout:hover {
+  border-color: #E8622A;
+  color: #E8622A;
+  background-color: #1A1410;
+}
