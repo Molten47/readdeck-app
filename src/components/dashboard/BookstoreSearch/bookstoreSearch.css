@@ -1,0 +1,383 @@
+.bs-section {
+  background-color: #0F0C09;
+  padding: 6rem 3rem;
+  min-height: 100vh;
+}
+
+.bs-grid {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 5rem;
+  align-items: center;
+}
+
+/* ── Collage ── */
+.bs-collage {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 200px 200px 160px;
+  gap: 1rem;
+  height: 600px;
+}
+
+.bs-collage-item {
+  border-radius: 1.5rem;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+}
+
+.bs-collage-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.bs-collage-item:hover img {
+  transform: scale(1.06);
+}
+
+.bs-collage-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, #0F0C09cc, transparent 60%);
+}
+
+.bs-collage-item--tall {
+  grid-column: 1;
+  grid-row: 1 / 3;
+}
+
+.bs-collage-item--tr {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.bs-collage-item--mr {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.bs-collage-item--bl {
+  grid-column: 1;
+  grid-row: 3;
+}
+
+.bs-collage-item--br {
+  grid-column: 2;
+  grid-row: 3;
+}
+
+.bs-badge {
+  position: absolute;
+  bottom: 0.85rem;
+  left: 0.85rem;
+  background-color: #E8622A;
+  border-radius: 0.6rem;
+  padding: 0.4rem 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: white;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+/* ── Right panel ── */
+.bs-right {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.bs-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #1A1410;
+  border: 1px solid #2A2118;
+  border-radius: 2rem;
+  padding: 0.5rem 1.1rem;
+  width: fit-content;
+  color: #E8622A;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.bs-headline {
+  color: #F5F0E8;
+  font-size: 3rem;
+  font-weight: 800;
+  line-height: 1.12;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.bs-headline span {
+  color: #E8622A;
+}
+
+.bs-subtext {
+  color: #8A7968;
+  font-size: 1.05rem;
+  margin-top: 1rem;
+  line-height: 1.7;
+  max-width: 420px;
+}
+
+/* ── Search input ── */
+.bs-input-wrapper {
+  position: relative;
+}
+
+.bs-input-box {
+  display: flex;
+  align-items: center;
+  background-color: #1A1410;
+  border: 1.5px solid #2A2118;
+  border-radius: 1rem;
+  padding: 0 1.25rem;
+  gap: 0.75rem;
+  transition: border-color 0.2s;
+}
+
+.bs-input-box:focus-within {
+  border-color: #E8622A;
+  box-shadow: 0 0 0 3px #E8622A18;
+}
+
+.bs-input-box input {
+  flex: 1;
+  height: 3.75rem;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #F5F0E8;
+  font-size: 1rem;
+  font-family: inherit;
+}
+
+.bs-input-box input::placeholder {
+  color: #8A7968;
+}
+
+.bs-search-btn {
+  background-color: #E8622A;
+  border: none;
+  border-radius: 0.6rem;
+  padding: 0.5rem 1rem;
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  font-family: inherit;
+  letter-spacing: 0.01em;
+  transition: background-color 0.2s;
+}
+
+.bs-search-btn:hover {
+  background-color: #d4561f;
+}
+
+.bs-clear-btn {
+  background: none;
+  border: none;
+  color: #8A7968;
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 0.25rem;
+}
+
+/* ── Dropdown ── */
+.bs-dropdown {
+  position: absolute;
+  top: 110%;
+  left: 0;
+  right: 0;
+  background-color: #1A1410;
+  border: 1.5px solid #2A2118;
+  border-radius: 1rem;
+  overflow: hidden;
+  z-index: 50;
+  box-shadow: 0 20px 50px #00000090;
+}
+
+.bs-suggestion-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 1rem 1.25rem;
+  background: none;
+  border: none;
+  border-bottom: 1px solid #2A2118;
+  cursor: pointer;
+  text-align: left;
+  transition: background-color 0.15s;
+}
+
+.bs-suggestion-btn:last-child {
+  border-bottom: none;
+}
+
+.bs-suggestion-btn:hover {
+  background-color: #2A2118;
+}
+
+.bs-suggestion-icon {
+  width: 2.2rem;
+  height: 2.2rem;
+  background-color: #2A2118;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.bs-suggestion-label {
+  color: #F5F0E8;
+  font-size: 0.95rem;
+  margin: 0;
+  font-weight: 600;
+}
+
+.bs-suggestion-sub {
+  color: #8A7968;
+  font-size: 0.75rem;
+  margin: 0.2rem 0 0;
+}
+
+.bs-suggestion-arrow {
+  margin-left: auto;
+  color: #E8622A;
+  font-size: 0.9rem;
+}
+
+/* ── Stats ── */
+.bs-stats {
+  display: flex;
+  gap: 2.5rem;
+  border-top: 1px solid #2A2118;
+  padding-top: 1.5rem;
+}
+
+.bs-stat-value {
+  color: #E8622A;
+  font-weight: 800;
+  font-size: 1.6rem;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.bs-stat-label {
+  color: #8A7968;
+  font-size: 0.82rem;
+  margin: 0.2rem 0 0;
+  font-weight: 500;
+}
+
+/* ── Results preview ── */
+.bs-results {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  max-height: 240px;
+  overflow-y: auto;
+}
+
+.bs-results::-webkit-scrollbar {
+  width: 4px;
+}
+
+.bs-results::-webkit-scrollbar-track {
+  background: #1A1410;
+}
+
+.bs-results::-webkit-scrollbar-thumb {
+  background: #2A2118;
+  border-radius: 2px;
+}
+
+.bs-result-card {
+  background-color: #1A1410;
+  border: 1px solid #2A2118;
+  border-radius: 0.875rem;
+  padding: 0.85rem 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  transition: border-color 0.2s;
+}
+
+.bs-result-card:hover {
+  border-color: #E8622A40;
+}
+
+.bs-result-name {
+  color: #F5F0E8;
+  font-weight: 700;
+  font-size: 0.92rem;
+  margin: 0;
+}
+
+.bs-result-sub {
+  color: #8A7968;
+  font-size: 0.75rem;
+  margin: 0.2rem 0 0;
+}
+
+.bs-result-rating {
+  color: #E8622A;
+  font-weight: 700;
+  font-size: 0.85rem;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.bs-more {
+  color: #8A7968;
+  font-size: 0.8rem;
+  text-align: center;
+  margin: 0.25rem 0 0;
+}
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .bs-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .bs-section {
+    padding: 4rem 1.5rem;
+  }
+
+  .bs-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .bs-collage {
+    height: 320px;
+    grid-template-rows: 120px 120px 100px;
+  }
+
+  .bs-headline {
+    font-size: 2rem;
+  }
+
+  .bs-stats {
+    gap: 1.5rem;
+  }
+}

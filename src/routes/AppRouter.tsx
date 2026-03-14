@@ -6,14 +6,18 @@ import LoginPage from '../pages/LoginPage';
 import SignupPage from '../pages/SignupPage';
 import DashboardPage from '../pages/DashboardPage';
 import NotFoundPage from '../pages/NotFoundPage';
+import LandingPage from '../pages/LandingPage';
+import { ThemeProvider } from '../context/ThemeContext';
 
 const AppRouter: React.FC = () => (
   <BrowserRouter>
-    <AuthProvider>
+  <ThemeProvider>
+      <AuthProvider>
       <Routes>
         {/* Public routes */}
         <Route path="/login"  element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
+        <Route path="/" element={<LandingPage />} />
 
         {/* Protected routes */}
         <Route element={<ProtectedRoute />}>
@@ -25,6 +29,8 @@ const AppRouter: React.FC = () => (
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </AuthProvider>
+  </ThemeProvider>
+  
   </BrowserRouter>
 );
 

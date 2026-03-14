@@ -1,0 +1,367 @@
+.fs-section {
+  background-color: #0F0C09;
+  padding: 6rem 2.5rem;
+  position: relative;
+}
+
+.fs-section--light {
+  background-color: #F5F0E8;
+}
+
+.fs-section__header {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 4rem;
+}
+
+.fs-section__eyebrow {
+  color: #E8622A;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 0 0 1rem;
+}
+
+.fs-section__title {
+  color: #F5F0E8;
+  font-size: 2.75rem;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin: 0 0 1rem;
+}
+
+.fs-section--light .fs-section__title {
+  color: #1A1410;
+}
+
+.fs-section__sub {
+  color: #8A7968;
+  font-size: 1rem;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.fs-grid {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.fs-card {
+  background-color: #1A1410;
+  border: 1px solid #2A2118;
+  border-radius: 1.5rem;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  transition: border-color 0.3s, transform 0.3s;
+  cursor: default;
+}
+
+.fs-section--light .fs-card {
+  background-color: #FAF7F2;
+  border-color: #E8E0D0;
+}
+
+.fs-card:hover {
+  border-color: #E8622A40;
+  transform: translateY(-4px);
+}
+
+.fs-card__icon {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0.875rem;
+  background-color: #E8622A18;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+}
+
+.fs-card__title {
+  color: #F5F0E8;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.fs-section--light .fs-card__title {
+  color: #1A1410;
+}
+
+.fs-card__desc {
+  color: #8A7968;
+  font-size: 0.9rem;
+  line-height: 1.65;
+  margin: 0;
+}
+
+/* ── Download section ── */
+.fs-download {
+  max-width: 1280px;
+  margin: 4rem auto 0;
+  background: linear-gradient(135deg, #1A1410 0%, #2A1A10 100%);
+  border: 1px solid #2A2118;
+  border-radius: 2rem;
+  padding: 3.5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+.fs-section--light .fs-download {
+  background: linear-gradient(135deg, #F0EAE0 0%, #E8DDD0 100%);
+  border-color: #E8E0D0;
+}
+
+.fs-download__eyebrow {
+  color: #E8622A;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin: 0 0 1rem;
+}
+
+.fs-download__title {
+  color: #F5F0E8;
+  font-size: 2.25rem;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin: 0 0 1rem;
+}
+
+.fs-section--light .fs-download__title {
+  color: #1A1410;
+}
+
+.fs-download__sub {
+  color: #8A7968;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  margin: 0 0 2rem;
+}
+
+.fs-download__btns {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.fs-download__btn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background-color: #F5F0E8;
+  border: none;
+  border-radius: 0.875rem;
+  padding: 0.75rem 1.25rem;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.fs-download__btn:hover {
+  transform: translateY(-2px);
+  background-color: white;
+}
+
+.fs-download__btn-icon {
+  font-size: 1.5rem;
+}
+
+.fs-download__btn-sub {
+  color: #8B5E3C;
+  font-size: 0.65rem;
+  font-weight: 500;
+  margin: 0;
+}
+
+.fs-download__btn-label {
+  color: #1A1410;
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.fs-download__visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.fs-download__mockup {
+  background-color: #0F0C09;
+  border-radius: 1.5rem;
+  border: 1.5px solid #2A2118;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 160px;
+}
+
+.fs-download__mockup-bar {
+  height: 8px;
+  border-radius: 4px;
+  background-color: #2A2118;
+}
+
+.fs-download__mockup-bar--accent {
+  background-color: #E8622A;
+  width: 60%;
+}
+
+.fs-download__mockup-card {
+  background-color: #1A1410;
+  border-radius: 0.75rem;
+  padding: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.fs-download__mockup-dot {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background-color: #E8622A30;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.fs-download__mockup-line {
+  height: 6px;
+  border-radius: 3px;
+  background-color: #2A2118;
+  flex: 1;
+}
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .fs-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .fs-section {
+    padding: 4rem 1.5rem;
+  }
+
+  .fs-section__title {
+    font-size: 2rem;
+  }
+
+  .fs-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .fs-download {
+    grid-template-columns: 1fr;
+    padding: 2rem;
+    gap: 2rem;
+  }
+
+  .fs-download__title {
+    font-size: 1.75rem;
+  }
+
+  .fs-download__visual {
+    display: none;
+  }
+}
+
+/* ── Light mode icon fix ── */
+.fs-section--light .fs-card {
+  background-color: #FFFFFF;
+  border-color: #E8E0D0;
+  box-shadow: 0 4px 24px #00000008;
+}
+
+.fs-section--light .fs-card:hover {
+  border-color: #E8622A40;
+  box-shadow: 0 8px 32px #00000012;
+}
+
+.fs-section--light .fs-card__icon {
+  background-color: #FFF0EA;
+  border: 1px solid #F5C4AA;
+  color: #C44E1A;
+}
+
+.fs-section--light .fs-card__title {
+  color: #1A1410;
+}
+
+.fs-section--light .fs-card__desc {
+  color: #5A4A3A;
+}
+
+/* ── Light mode download section ── */
+.fs-section--light .fs-download {
+  background: linear-gradient(135deg, #F0EAE0 0%, #E8DDD0 100%);
+  border-color: #E8E0D0;
+}
+
+.fs-section--light .fs-download__eyebrow {
+  color: #E8622A;
+}
+
+.fs-section--light .fs-download__title {
+  color: #1A1410;
+}
+
+.fs-section--light .fs-download__sub {
+  color: #5A4A3A;
+}
+
+.fs-section--light .fs-download__btn {
+  background-color: #1A1410;
+  border-color: #1A1410;
+}
+
+.fs-section--light .fs-download__btn:hover {
+  background-color: #2A2118;
+}
+
+.fs-section--light .fs-download__btn-sub {
+  color: #8A7968;
+}
+
+.fs-section--light .fs-download__btn-label {
+  color: #FFFFFF;
+}
+
+.fs-section--light .fs-download__mockup {
+  background-color: #1A1410;
+  border-color: #2A2118;
+}
+
+.fs-section--light .fs-download__mockup-bar {
+  background-color: #2A2118;
+}
+
+.fs-section--light .fs-download__mockup-line {
+  background-color: #2A2118;
+}
+
+/* ── Light mode header text ── */
+.fs-section--light .fs-section__title {
+  color: #1A1410;
+}
+
+.fs-section--light .fs-section__sub {
+  color: #5A4A3A;
+}
