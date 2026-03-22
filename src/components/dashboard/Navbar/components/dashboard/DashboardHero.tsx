@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useTheme } from '../../../../../context/ThemeContext';
 import { useAuth } from '../../../../../context/AuthContext';
 import DashboardPhoneMockup from './DashboardPhoneMockup';
-import './dashboardHero.css';
+import './DashboardHero.css';
 
 const ICON_MAP: Record<string, React.ReactNode> = {
   Search:  <Search  size={18} color="#E8622A" />,
