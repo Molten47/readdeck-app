@@ -7,7 +7,7 @@ import {
 } from 'lucide-react';
 import { useVendorSetup, GENRE_OPTIONS, EMOJI_OPTIONS, COLOR_OPTIONS } from './useVendor';
 import { useTheme } from '../../context/ThemeContext';
-import './vendorSetup.css';
+import './VendorSetup.css';
 
 const STEPS = [
   { icon: MapPin,  label: 'Location'   },
