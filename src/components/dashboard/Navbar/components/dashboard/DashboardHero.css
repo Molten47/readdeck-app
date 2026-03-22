@@ -1,0 +1,564 @@
+/* ── Section ── */
+.dh-section {
+  min-height: 100vh;
+  background-color: #0F0C09;
+  padding: 7rem 2.5rem 4rem;
+  display: flex;
+  align-items: center;
+  transition: background-color 0.3s;
+}
+
+.dh-section--light {
+  background-color: #FAF7F2;
+}
+
+/* ── Inner grid ── */
+.dh-inner {
+  max-width: 86rem;
+  margin: 0 auto;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 8rem;
+  align-items: center;
+}
+
+/* ── Left ── */
+.dh-left {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* ── Greeting ── */
+.dh-greeting {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.dh-greeting__time {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: #8A7968;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.dh-greeting__headline {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  color: #F5F0E8;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin: 0;
+}
+
+.dh-section--light .dh-greeting__headline {
+  color: #1A1410;
+}
+
+.dh-greeting__headline span {
+  color: #E8622A;
+}
+
+.dh-greeting__sub {
+  color: #8A7968;
+  font-size: 1rem;
+  margin: 0;
+  line-height: 1.6;
+  max-width: 38rem;
+}
+
+/* ── Quick actions ── */
+.dh-actions {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.870rem;
+}
+
+.dh-action {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  background-color: #1A1410;
+  border: 1px solid #2A2118;
+  border-radius: 1rem;
+  padding: 1.1rem 1.1rem;
+  cursor: pointer;
+  font-family: inherit;
+  text-align: left;
+  transition: border-color 0.2s, background-color 0.2s, transform 0.15s;
+}
+
+.dh-action:hover {
+  border-color: #E8622A50;
+  background-color: #1e1812;
+  transform: translateY(-2px);
+}
+
+.dh-action--accent {
+  border-color: #E8622A50;
+  background-color: #E8622A0D;
+}
+
+.dh-action--accent:hover {
+  border-color: #E8622A;
+  background-color: #E8622A18;
+}
+
+.dh-section--light .dh-action {
+  background-color: #FFFFFF;
+  border-color: #E8E0D0;
+}
+
+.dh-section--light .dh-action:hover {
+  border-color: #E8622A50;
+  background-color: #FDF8F4;
+}
+
+.dh-section--light .dh-action--accent {
+  background-color: #FFF5F0;
+  border-color: #E8622A40;
+}
+
+.dh-action__icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.6rem;
+  background-color: #E8622A18;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.dh-action--accent .dh-action__icon {
+  background-color: #E8622A25;
+}
+
+.dh-action__text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.dh-action__label {
+  color: #F5F0E8;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.dh-section--light .dh-action__label {
+  color: #1A1410;
+}
+
+.dh-action__sub {
+  color: #8A7968;
+  font-size: 0.75rem;
+}
+
+/* ── Status strip ── */
+.dh-status {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  padding: 1rem 1rem;
+  background-color: #1A1410;
+  border: 1px solid #2A2118;
+  border-radius: 1rem;
+}
+
+.dh-section--light .dh-status {
+  background-color: #FFFFFF;
+  border-color: #E8E0D0;
+}
+
+.dh-status__item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #8A7968;
+  font-size: 0.8rem;
+}
+
+.dh-status__item strong {
+  color: #F5F0E8;
+  font-weight: 700;
+}
+
+.dh-section--light .dh-status__item strong {
+  color: #1A1410;
+}
+
+.dh-status__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #2A2118;
+  flex-shrink: 0;
+}
+
+.dh-status__dot--live {
+  background-color: #4CAF50;
+  box-shadow: 0 0 6px #4CAF5080;
+  animation: dh-pulse 2s infinite;
+}
+
+@keyframes dh-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.5; }
+}
+
+/* ── Right column ── */
+.dh-right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+/* ── Phone wrap — sized to contain shell + floating icons ── */
+.dh-phone-wrap {
+  position: relative;
+  width: 380px;
+  height: 650px;
+  /* center the shell inside the wrap */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ── Outer shell — physical phone body ── */
+.dh-phone__shell {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 3.25rem;
+
+  /* Aluminum-style gradient body */
+  background: linear-gradient(
+    160deg,
+    #4A4038 0%,
+    #1A1410 20%,
+    #2A2118 50%,
+    #1A1410 80%,
+    #4A4038 100%
+  );
+
+  /* Layered shadow stack for physical depth */
+  box-shadow:
+    0 0 0 1.5px #5A5048,        /* outer rim highlight */
+    0 0 0 3px #0A0806,          /* dark gap between rim and content */
+    inset 0 2px 0 #6A6058,      /* top catch light */
+    inset 0 -2px 0 #0A0806,     /* bottom edge shadow */
+    inset 2px 0 0 #3A3028,      /* left edge */
+    inset -2px 0 0 #3A3028,     /* right edge */
+    0 48px 96px #00000095,      /* main drop shadow */
+    0 12px 32px #00000070;      /* secondary shadow */
+
+  padding: 8px;
+}
+
+/* ── Side hardware buttons ── */
+.dh-phone__btn {
+  position: absolute;
+  background: linear-gradient(90deg, #1A1410, #3A3228, #2A2118, #3A3228, #1A1410);
+  border-radius: 3px;
+  z-index: 3;
+}
+
+/* Volume up */
+.dh-phone__btn--vol-up {
+  width: 4px;
+  height: 40px;
+  left: -4px;
+  top: 26%;
+  border-radius: 2px 0 0 2px;
+  box-shadow:
+    -1px 0 0 #5A5048,
+    inset 0 1px 0 #5A5048,
+    inset 0 -1px 0 #0A0806;
+}
+
+/* Volume down */
+.dh-phone__btn--vol-down {
+  width: 4px;
+  height: 40px;
+  left: -4px;
+  top: calc(26% + 52px);
+  border-radius: 2px 0 0 2px;
+  box-shadow:
+    -1px 0 0 #5A5048,
+    inset 0 1px 0 #5A5048,
+    inset 0 -1px 0 #0A0806;
+}
+
+/* Power / sleep */
+.dh-phone__btn--power {
+  width: 4px;
+  height: 60px;
+  right: -4px;
+  top: 28%;
+  border-radius: 0 2px 2px 0;
+  box-shadow:
+    1px 0 0 #5A5048,
+    inset 0 1px 0 #5A5048,
+    inset 0 -1px 0 #0A0806;
+}
+
+/* ── Inner screen bezel ── */
+.dh-phone {
+  width: 100%;
+  height: 100%;
+  background-color: #120F0C;
+  border-radius: 2.75rem;
+  border: 1px solid #0A0806;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  box-shadow:
+    inset 0 0 0 1px #2A2118,
+    inset 0 2px 8px #00000060;
+  transition: box-shadow 0.3s;
+}
+
+/* ── Notch ── */
+.dh-phone__notch {
+  position: absolute;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 76px;
+  height: 24px;
+  background-color: #0A0806;
+  border-radius: 1rem;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  box-shadow: 0 2px 8px #00000080;
+}
+
+/* ── Screen content ── */
+.dh-phone__screen {
+  padding: 3.5rem 1.25rem 1.25rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.72rem;
+  overflow: hidden;
+  background-color: #1A1410;
+}
+
+.dh-phone__deliver-label {
+  color: #8A7968;
+  font-size: 0.68rem;
+  margin: 0;
+}
+
+.dh-phone__deliver-addr {
+  color: #F5F0E8;
+  font-size: 0.82rem;
+  font-weight: 600;
+  margin: 0.1rem 0 0;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.dh-phone__search {
+  background-color: #0F0C09;
+  border-radius: 0.5rem;
+  padding: 0.55rem 0.7rem;
+  color: #8A7968;
+  font-size: 0.72rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.dh-phone__banner {
+  background-color: #E8622A;
+  border-radius: 0.75rem;
+  padding: 0.875rem 1rem;
+  color: white;
+}
+
+.dh-phone__banner-sub {
+  font-size: 0.68rem;
+  opacity: 0.85;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.dh-phone__banner-title {
+  font-size: 0.875rem;
+  font-weight: 700;
+  margin: 0.15rem 0 0;
+}
+
+.dh-phone__book {
+  background-color: #0F0C09;
+  border-radius: 0.6rem;
+  padding: 0.55rem 0.7rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.dh-phone__book-title {
+  color: #F5F0E8;
+  font-size: 0.72rem;
+  font-weight: 600;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.dh-phone__book-author {
+  color: #8A7968;
+  font-size: 0.62rem;
+  margin: 0;
+}
+
+.dh-phone__book-price {
+  color: #E8622A;
+  font-size: 0.72rem;
+  font-weight: 700;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.dh-phone__delivery {
+  margin-top: auto;
+  background-color: #0F0C09;
+  border-radius: 0.6rem;
+  padding: 0.55rem 0.7rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.dh-phone__delivery-title {
+  color: #F5F0E8;
+  font-size: 0.68rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.dh-phone__delivery-sub {
+  color: #E8622A;
+  font-size: 0.62rem;
+  margin: 0;
+}
+
+/* ── Responsive ── */
+@media (max-width: 1100px) {
+  .dh-inner {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .dh-right {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .dh-section {
+    padding: 6rem 1.25rem 3rem;
+  }
+
+  .dh-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .dh-status {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+}
+/* ── Append to bottom of dashboardHero.css ── */
+
+/* ── Tablet (iPad Air, iPad mini etc) ── */
+@media (max-width: 820px) {
+  .dh-section {
+    min-height: unset;        /* remove full-screen lock */
+    padding: 5.5rem 1.75rem 3rem;
+  }
+
+  .dh-greeting__headline {
+    font-size: clamp(1.75rem, 5vw, 2.5rem);
+  }
+}
+
+/* ── Mobile (≤640px) — overrides existing rule with tighter values ── */
+@media (max-width: 640px) {
+  .dh-section {
+    min-height: unset;
+    padding: 5rem 1.25rem 2.5rem;
+    align-items: flex-start;  /* don't vertically center — just top-align */
+  }
+
+  .dh-inner {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;             /* was 3rem — tighter vertical spacing */
+  }
+
+  .dh-left {
+    gap: 1.25rem;             /* was 2rem */
+  }
+
+  .dh-greeting {
+    gap: 0.3rem;
+  }
+
+  .dh-greeting__headline {
+    font-size: clamp(1.6rem, 7vw, 2.25rem);
+  }
+
+  .dh-greeting__sub {
+    font-size: 0.9rem;
+  }
+
+  .dh-actions {
+    grid-template-columns: 1fr;
+    gap: 0.625rem;
+  }
+
+  .dh-action {
+    padding: 0.875rem 1rem;
+  }
+
+  .dh-status {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0.75rem 0.875rem;
+  }
+
+  .dh-status__item {
+    font-size: 0.75rem;
+  }
+
+  .dh-right {
+    display: none;
+  }
+}
+
+/* ── iPhone SE / small phones (≤375px) ── */
+@media (max-width: 375px) {
+  .dh-section {
+    padding: 4.75rem 1rem 2rem;
+  }
+
+  .dh-greeting__headline {
+    font-size: 1.5rem;
+  }
+}

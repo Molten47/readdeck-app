@@ -120,7 +120,7 @@ const GooglePlayBadge: React.FC = () => (
 
 // ── Sub-components ───────────────────────────────────────────────
 
-const BrandCol: React.FC<{ isDark: boolean }> = ({ isDark }) => (
+const BrandCol: React.FC<{ isDark: boolean }> = ({}) => (
   <div>
     <p className="ft-brand__logo">read<span>deck</span></p>
     <p className="ft-brand__desc">

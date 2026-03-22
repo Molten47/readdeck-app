@@ -26,7 +26,7 @@
   height: 70px;
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1.25rem;
 }
 
 /* ── Logo ── */
@@ -48,17 +48,208 @@
   color: #E8622A;
 }
 
+/* ── Menu row ── */
+.ln-nav__menu {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
 .ln-nav__spacer {
   flex: 1;
 }
 
+/* ── Nav item with dropdown ── */
+.ln-nav__item {
+  position: relative;
+}
+
+.ln-nav__item-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: none;
+  border: none;
+  color: #8A7968;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  padding: 0.45rem 0.75rem;
+  border-radius: 0.5rem;
+  transition: color 0.2s, background-color 0.2s;
+  white-space: nowrap;
+}
+
+.ln-nav__item-btn:hover {
+  color: #F5F0E8;
+  background-color: #1A1410;
+}
+
+.ln-nav__item-btn--light {
+  color: #8B5E3C;
+}
+
+.ln-nav__item-btn--light:hover {
+  color: #1A1410;
+  background-color: #F0EAE0;
+}
+
+/* ── Dropdown container ── */
+.ln-nav__dropdown {
+  position: absolute;
+  top: calc(100% + 0.75rem);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 12rem;
+  z-index: 200;
+  padding: 0.25rem 0;
+}
+
+.ln-nav__dropdown--light {
+  background-color: transparent;
+  border-color: none;
+  
+}
+
+/* Arrow pointer on dropdown */
+/* Arrow pointer */
+.ln-nav__dropdown::before {
+  content: '';
+  position: absolute;
+  top: -0.4rem;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  width: 0.7rem;
+  height: 0.7rem;
+  background-color: #1A1410;
+  border-left: 1px solid #2A2118;
+  border-top: 1px solid #2A2118;
+  z-index: 1;
+}
+
+.ln-nav__dropdown--light::before {
+  background-color: #FAF7F2;
+  border-color: #E8E0D0;
+}
+
+/* ── Each dropdown pill ── */
+.ln-nav__drop-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background-color: #1A1410;
+  border: 1px solid #2A2118;
+  border-radius: 0.75rem;
+  padding: 0.65rem 1rem;
+  color: #8A7968;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  text-align: left;
+  width: 100%;
+  transition: background-color 0.15s, color 0.15s, border-color 0.15s, transform 0.15s;
+  box-shadow: 0 2px 8px #00000040;
+}
+
+
+.ln-nav__drop-item:hover {
+  background-color: #2A2118;
+  border-color: #E8622A50;
+  color: #F5F0E8;
+  transform: translateX(3px);
+}
+
+
+.ln-nav__drop-item--light {
+  background-color: #FFFFFF;
+  border-color: #E8E0D0;
+  color: #5A4A3A;
+  box-shadow: 0 2px 8px #00000015;
+}
+
+.ln-nav__drop-item--light:hover {
+  background-color: #F5EFE8;
+  border-color: #E8622A50;
+  color: #1A1410;
+  transform: translateX(3px);
+}
+
+.ln-nav__drop-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  background-color: #E8622A18;
+  border-radius: 0.4rem;
+  color: #E8622A;
+  flex-shrink: 0;
+}
+
+.ln-nav__drop-item--light .ln-nav__drop-icon {
+  background-color: #E8622A15;
+}
+
+/* ── Cart ── */
+.ln-nav__cart {
+  position: relative;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  border: 1px solid #2A2118;
+  background: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #8A7968;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.ln-nav__cart:hover {
+  border-color: #E8622A;
+  color: #E8622A;
+}
+
+.ln-nav__cart--light {
+  border-color: #E8E0D0;
+  color: #8B5E3C;
+}
+
+.ln-nav__cart-badge {
+  position: absolute;
+  top: -0.2rem;
+  right: -0.2rem;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  background-color: #E8622A;
+  color: white;
+  font-size: 0.55rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid #0F0C09;
+}
+
+.ln-nav__cart--light .ln-nav__cart-badge {
+  border-color: #FAF7F2;
+}
+
+/* ── Fancy toggle ── */
 .ln-nav__links {
   display: flex;
   align-items: center;
   gap: 0.75rem;
 }
 
-/* ── Fancy toggle ── */
 .ln-nav__toggle {
   position: relative;
   width: 3.25rem;
@@ -84,7 +275,6 @@
   border-color: #E8622A;
 }
 
-/* Background icons sitting in track */
 .ln-nav__toggle-icon {
   position: absolute;
   display: flex;
@@ -105,7 +295,6 @@
   opacity: 1;
 }
 
-/* Hide the icon that's under the thumb */
 .ln-nav__toggle:not(.ln-nav__toggle--light) .ln-nav__toggle-icon--moon {
   opacity: 0;
 }
@@ -114,7 +303,6 @@
   opacity: 0;
 }
 
-/* Sliding thumb */
 .ln-nav__toggle-thumb {
   position: absolute;
   width: 1.25rem;
@@ -128,7 +316,7 @@
   box-shadow: 0 1px 4px #00000040;
 }
 
-/* ── Nav links ── */
+/* ── Auth buttons ── */
 .ln-nav__link {
   background: none;
   border: 1px solid #2A2118;
@@ -140,6 +328,7 @@
   cursor: pointer;
   font-family: inherit;
   transition: all 0.2s;
+  white-space: nowrap;
 }
 
 .ln-nav__link:hover {
@@ -168,9 +357,35 @@
   cursor: pointer;
   font-family: inherit;
   transition: background-color 0.2s, transform 0.15s;
+  white-space: nowrap;
 }
 
 .ln-nav__signup:hover {
   background-color: #d4561f;
   transform: translateY(-1px);
+}
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .ln-nav__menu {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .ln-nav {
+    padding: 0 1.25rem;
+  }
+
+  .ln-nav__link {
+    display: none;
+  }
+}
+/* ── Append to landingNavbar.css ── */
+
+/* Go to app button — icon + text inline */
+.ln-nav__signup {
+  display:     inline-flex;
+  align-items: center;
+  gap:         0.4rem;
 }

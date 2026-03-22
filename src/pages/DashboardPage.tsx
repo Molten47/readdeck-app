@@ -1,16 +1,13 @@
 import React from 'react';
-import Navbar from '../components/dashboard/Navbar/Navbar';
-import Hero from '../components/dashboard/Hero';
-import SearchSection from '../components/dashboard/SearchSection';
-import BookstoreSearch from '../components/dashboard/BookstoreSearch/BookstoreSearch';
+import DashboardHero from '../components/dashboard/Navbar/components/dashboard/DashboardHero';
+import LandingShell from './LandingShell';
 
 const DashboardPage: React.FC = () => (
-  <div>
-    <Navbar />
-    <Hero />
-    <SearchSection />
-   <BookstoreSearch/>
-  </div>
+  <>
+    
+    <DashboardHero />
+    <LandingShell />
+  </>
 );
 
 export default DashboardPage;

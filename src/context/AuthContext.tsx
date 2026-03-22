@@ -3,19 +3,20 @@ import { getMe, logout as logoutApi } from '../auth/auth';
 import type { MeResponse } from '../types/auth';
 
 interface AuthContextType {
-  user: MeResponse | null;
-  loading: boolean;
-  setUser: (user: MeResponse | null) => void;
-  logout: () => Promise<void>;
+  user:      MeResponse | null;
+  loading:   boolean;
+  isVendor:  boolean;
+  isAdmin:   boolean;
+  setUser:   (user: MeResponse | null) => void;
+  logout:    () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<MeResponse | null>(null);
+  const [user,    setUser]    = useState<MeResponse | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // On mount — check if we have a valid session via cookie
   useEffect(() => {
     getMe()
       .then(setUser)
@@ -29,8 +30,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     window.location.href = '/login';
   };
 
+  const isVendor = user?.role === 'vendor' || user?.role === 'admin';
+  const isAdmin  = user?.role === 'admin';
+
   return (
-    <AuthContext.Provider value={{ user, loading, setUser, logout }}>
+    <AuthContext.Provider value={{ user, loading, isVendor, isAdmin, setUser, logout }}>
       {children}
     </AuthContext.Provider>
   );

@@ -1,0 +1,283 @@
+/* ── Page ── */
+.bv-page {
+  min-height: 100vh;
+  background-color: #0F0C09;
+  padding: 6rem 2.5rem 4rem;
+  transition: background-color 0.3s;
+}
+.bv-page--light { background-color: #FAF7F2; }
+
+/* ── Inner grid ── */
+.bv-inner {
+  max-width: 72rem;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 480px;
+  gap: 5rem;
+  align-items: start;
+}
+
+/* ── LEFT ── */
+.bv-left__badge {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  padding: 0.35rem 0.85rem; border-radius: 999px;
+  border: 1px solid rgba(232,98,42,0.3);
+  background: rgba(232,98,42,0.08);
+  color: #E8622A; font-size: 0.78rem; font-weight: 500;
+  margin-bottom: 1.25rem;
+}
+.bv-left__headline {
+  font-size: 2.5rem; font-weight: 800;
+  color: #F5EFE6; line-height: 1.15;
+  letter-spacing: -0.04em; margin: 0 0 1rem;
+}
+.bv-left__headline span { color: #E8622A; }
+.bv-page--light .bv-left__headline { color: #1A1410; }
+
+.bv-left__sub { font-size: 0.95rem; color: #8A7968; line-height: 1.65; margin: 0 0 2.5rem; max-width: 28rem; }
+
+/* ── Perks ── */
+.bv-perks { display: flex; flex-direction: column; gap: 1.25rem; }
+.bv-perk { display: flex; gap: 0.875rem; align-items: flex-start; }
+.bv-perk__icon {
+  width: 2.25rem; height: 2.25rem; flex-shrink: 0;
+  border-radius: 0.5rem;
+  background: rgba(232,98,42,0.1);
+  display: flex; align-items: center; justify-content: center;
+}
+.bv-perk__title { font-size: 0.875rem; font-weight: 600; color: #F5EFE6; margin: 0 0 0.2rem; }
+.bv-page--light .bv-perk__title { color: #1A1410; }
+.bv-perk__desc { font-size: 0.8rem; color: #8A7968; margin: 0; line-height: 1.5; }
+
+/* ── RIGHT — Form ── */
+.bv-right {
+  background: #1A1410;
+  border: 1px solid #2A2118;
+  border-radius: 1rem;
+  padding: 2rem;
+  position: sticky;
+  top: 6rem;
+}
+.bv-page--light .bv-right { background: #fff; border-color: #E8E0D5; }
+
+.bv-form__title { font-size: 1.15rem; font-weight: 700; color: #F5EFE6; margin: 0 0 0.25rem; }
+.bv-page--light .bv-form__title { color: #1A1410; }
+.bv-form__sub { font-size: 0.8rem; color: #8A7968; margin: 0 0 1.5rem; }
+
+.bv-form__section-label { font-size: 0.72rem; font-weight: 600; color: #8A7968; text-transform: uppercase; letter-spacing: 0.08em; margin: 0.5rem 0 0.75rem; }
+
+.bv-form__error {
+  display: flex; align-items: center; gap: 0.5rem;
+  padding: 0.6rem 0.875rem; border-radius: 0.5rem;
+  background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.2);
+  color: #EF4444; font-size: 0.8rem; margin-bottom: 1rem;
+}
+
+/* ── Fields ── */
+.bv-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+.bv-field { display: flex; flex-direction: column; gap: 0.35rem; margin-bottom: 0.875rem; }
+.bv-field__label {
+  font-size: 0.78rem; font-weight: 500; color: #8A7968;
+  display: flex; align-items: center; gap: 0.3rem;
+}
+.bv-field__label span { color: #E8622A; }
+.bv-field__input {
+  background: #0F0C09; border: 1px solid #2A2118;
+  border-radius: 0.5rem; padding: 0.6rem 0.875rem;
+  font-size: 0.85rem; color: #F5EFE6; outline: none;
+  transition: border-color 0.2s; width: 100%; box-sizing: border-box;
+  font-family: inherit;
+}
+.bv-field__input:focus { border-color: #E8622A; }
+.bv-field__input::placeholder { color: #4A3F35; }
+.bv-page--light .bv-field__input { background: #FAF7F2; border-color: #E8E0D5; color: #1A1410; }
+.bv-field__textarea { resize: vertical; min-height: 5rem; }
+
+/* ── Submit ── */
+.bv-form__submit {
+  width: 100%; padding: 0.8rem;
+  background: #E8622A; border: none; border-radius: 0.6rem;
+  color: #fff; font-size: 0.9rem; font-weight: 600;
+  cursor: pointer; display: flex; align-items: center;
+  justify-content: center; gap: 0.5rem;
+  transition: background 0.2s; margin-top: 0.5rem;
+}
+.bv-form__submit:hover:not(:disabled) { background: #D4531C; }
+.bv-form__submit:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.bv-form__note { font-size: 0.72rem; color: #4A3F35; text-align: center; margin: 0.75rem 0 0; line-height: 1.5; }
+
+/* ── Status banner ── */
+.bv-status {
+  display: flex; flex-direction: column; align-items: center;
+  text-align: center; padding: 2rem 1rem; gap: 0.5rem;
+}
+.bv-status__icon { margin-bottom: 0.5rem; }
+.bv-status__label { font-size: 1.25rem; font-weight: 700; margin: 0; }
+.bv-status__store { font-size: 0.875rem; color: #F5EFE6; font-weight: 600; margin: 0; }
+.bv-page--light .bv-status__store { color: #1A1410; }
+.bv-status__desc { font-size: 0.85rem; color: #8A7968; line-height: 1.6; margin: 0.25rem 0 0; max-width: 22rem; }
+.bv-status__date { font-size: 0.75rem; color: #4A3F35; margin: 0.5rem 0 0; }
+
+/* ── Loading ── */
+.bv-loading {
+  display: flex; align-items: center; justify-content: center;
+  padding: 4rem 0;
+}
+.bv-loading__spin { animation: bv-spin 0.8s linear infinite; }
+@keyframes bv-spin { to { transform: rotate(360deg); } }
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .bv-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+  .bv-right { position: static; }
+}
+/* ── Append to bottom of Becomevendors.css ── */
+
+/* ── Polling indicator in status banner ── */
+.bv-status__polling {
+  display:     flex;
+  align-items: center;
+  gap:         0.5rem;
+  font-size:   0.78rem;
+  color:       #8A7968;
+  margin:      0.5rem 0 0;
+}
+.bv-status__dot {
+  width:         0.5rem;
+  height:        0.5rem;
+  border-radius: 50%;
+  background:    #E8622A;
+  flex-shrink:   0;
+  animation:     bv-blink 1.4s ease-in-out infinite;
+}
+@keyframes bv-blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.25; }
+}
+
+/* ── Celebration backdrop ── */
+.bv-celebration-backdrop {
+  position:        fixed;
+  inset:           0;
+  background:      rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(6px);
+  z-index:         500;
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  padding:         1.5rem;
+}
+
+/* ── Celebration card ── */
+.bv-celebration {
+  background:    #130F0A;
+  border:        1.5px solid rgba(232, 98, 42, 0.35);
+  border-radius: 1.25rem;
+  padding:       2.5rem 2rem;
+  max-width:     26rem;
+  width:         100%;
+  text-align:    center;
+  position:      relative;
+  overflow:      hidden;
+}
+.bv-celebration::before {
+  content:        '';
+  position:       absolute;
+  inset:          0;
+  background:     radial-gradient(ellipse at 50% 0%, rgba(232,98,42,0.12) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+/* ── Sparkles ring ── */
+.bv-celebration__sparkles {
+  position:        relative;
+  width:           5rem;
+  height:          5rem;
+  margin:          0 auto 1.5rem;
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+}
+.bv-celebration__icon {
+  width:           3.5rem;
+  height:          3.5rem;
+  border-radius:   50%;
+  background:      rgba(232, 98, 42, 0.12);
+  border:          1.5px solid rgba(232, 98, 42, 0.35);
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  position:        relative;
+  z-index:         1;
+}
+.bv-celebration__spark {
+  position:      absolute;
+  width:         6px;
+  height:        6px;
+  border-radius: 50%;
+  background:    #E8622A;
+  top:           50%;
+  left:          50%;
+  transform:     translate(-50%, -50%)
+                 rotate(calc(var(--i) * 45deg))
+                 translateY(-2.5rem);
+}
+
+/* ── Celebration text ── */
+.bv-celebration__title {
+  font-size:      1.75rem;
+  font-weight:    800;
+  color:          #F5EFE6;
+  margin:         0 0 0.35rem;
+  letter-spacing: -0.02em;
+}
+.bv-celebration__store {
+  font-size:   1rem;
+  font-weight: 700;
+  color:       #E8622A;
+  margin:      0 0 0.875rem;
+}
+.bv-celebration__desc {
+  font-size:   0.875rem;
+  color:       #8A7968;
+  line-height: 1.6;
+  margin:      0 0 1.75rem;
+}
+
+/* ── CTA button ── */
+.bv-celebration__btn {
+  display:         inline-flex;
+  align-items:     center;
+  justify-content: center;
+  gap:             0.5rem;
+  width:           100%;
+  padding:         0.875rem 1.5rem;
+  background:      #E8622A;
+  border:          none;
+  border-radius:   0.75rem;
+  color:           #fff;
+  font-size:       0.95rem;
+  font-weight:     700;
+  cursor:          pointer;
+  font-family:     inherit;
+  margin-bottom:   1rem;
+  transition:      background 0.18s;
+}
+.bv-celebration__btn:hover { background: #D05420; }
+
+.bv-celebration__note {
+  font-size:   0.75rem;
+  color:       #5A4E42;
+  margin:      0;
+  line-height: 1.5;
+}
+.bv-celebration__note strong { color: #E8622A; }
+
+/* ── Light mode overrides ── */
+.bv-page--light .bv-celebration {
+  background:   #F5EFE8;
+  border-color: rgba(232, 98, 42, 0.3);
+}
+.bv-page--light .bv-celebration__title { color: #1A1410; }
+.bv-page--light .bv-celebration__note  { color: #8A7968; }

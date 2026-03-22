@@ -1,23 +1,30 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React from 'react';
 import { motion } from 'framer-motion';
-import { Sun, Moon } from 'lucide-react';
-import { useTheme } from '../../../context/ThemeContext';
+import { Sun, Moon, ShoppingCart, LayoutDashboard } from 'lucide-react';
+import { useLandingNavbar } from './useLandingNavbar';
+import { useAuth } from '../../../context/AuthContext';
+import NavItem from './NavItem';
+import GuestCart from './GuestCart';
+import { NAV_ITEMS } from './NavItems';
 import './landingNavbar.css';
 
 const LandingNavbar: React.FC = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const navigate = useNavigate();
-  const { isDark, toggleTheme } = useTheme();
+  const {
+    isScrolled,
+    guestCartOpen, setGuestCartOpen,
+    guestCartRef,
+    navigate,
+    isDark, toggleTheme,
+  } = useLandingNavbar();
 
-  useEffect(() => {
-    const onScroll = () => setIsScrolled(window.scrollY > 20);
-    window.addEventListener('scroll', onScroll);
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+  const { user, loading } = useAuth();
 
-  const themeClass = isDark ? '' : 'ln-nav--light';
+  const themeClass  = isDark ? '' : 'ln-nav--light';
   const scrollClass = isScrolled ? 'ln-nav--scrolled' : '';
+
+  // Show guest buttons by default while loading — avoids blank navbar flash.
+  // Once auth resolves and we know user is logged in, swap to "Go to app".
+  const isLoggedIn = !loading && !!user;
 
   return (
     <motion.nav
@@ -33,28 +40,31 @@ const LandingNavbar: React.FC = () => {
           read<span>deck</span>
         </span>
 
+        {/* Nav items */}
+        <nav className="ln-nav__menu">
+          {NAV_ITEMS.map(item => (
+            <NavItem key={item.label} item={item} isDark={isDark} navigate={navigate} />
+          ))}
+        </nav>
+
         <div className="ln-nav__spacer" />
 
         <div className="ln-nav__links">
 
-          {/* Fancy toggle */}
+          {/* Theme toggle — always visible */}
           <button
             className={`ln-nav__toggle ${isDark ? '' : 'ln-nav__toggle--light'}`}
             onClick={toggleTheme}
             aria-label="Toggle theme"
           >
-            {/* Track icons */}
             <span className="ln-nav__toggle-icon ln-nav__toggle-icon--moon">
               <Moon size={11} />
             </span>
             <span className="ln-nav__toggle-icon ln-nav__toggle-icon--sun">
               <Sun size={11} />
             </span>
-
-            {/* Sliding thumb */}
             <motion.span
               className="ln-nav__toggle-thumb"
-              layout
               animate={{ x: isDark ? '0.15rem' : '1.45rem' }}
               transition={{ type: 'spring', stiffness: 500, damping: 35 }}
             >
@@ -65,12 +75,48 @@ const LandingNavbar: React.FC = () => {
             </motion.span>
           </button>
 
-          <button className="ln-nav__link" onClick={() => navigate('/login')}>
-            Log in
-          </button>
-          <button className="ln-nav__signup" onClick={() => navigate('/signup')}>
-            Get started
-          </button>
+          {isLoggedIn ? (
+            /* ── Logged in — go straight to app ── */
+            <button
+              className="ln-nav__signup"
+              onClick={() => navigate('/dashboard')}
+            >
+              <LayoutDashboard size={14} />
+              Go to app
+            </button>
+          ) : (
+            /* ── Guest (or loading) — always show CTA ── */
+            <>
+              <div style={{ position: 'relative' }} ref={guestCartRef}>
+                <button
+                  className={`ln-nav__cart ${isDark ? '' : 'ln-nav__cart--light'}`}
+                  onClick={() => setGuestCartOpen(o => !o)}
+                  aria-label="Cart"
+                >
+                  <ShoppingCart size={16} />
+                </button>
+                <GuestCart
+                  open={guestCartOpen}
+                  isDark={isDark}
+                  onSignup={() => { navigate('/signup'); setGuestCartOpen(false); }}
+                />
+              </div>
+
+              <button
+                className="ln-nav__link"
+                onClick={() => navigate('/login')}
+              >
+                Log in
+              </button>
+
+              <button
+                className="ln-nav__signup"
+                onClick={() => navigate('/signup')}
+              >
+                Get started
+              </button>
+            </>
+          )}
 
         </div>
       </div>

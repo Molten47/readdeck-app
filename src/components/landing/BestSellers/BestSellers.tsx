@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
-import { ShoppingBag, Star } from 'lucide-react';
+import { ShoppingBag, Star, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useTheme } from '../../../context/ThemeContext';
 import { useBestSellers } from './useBestSellers';
@@ -14,7 +14,6 @@ const getStyles = (isDark: boolean) => ({
   eyebrow:  { color: '#E8622A', fontSize: '0.75rem', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase' as const, margin: '0 0 0.5rem' },
   title:    { color: isDark ? '#F5F0E8' : '#1A1410', fontSize: '2.25rem', fontWeight: 800, margin: 0, letterSpacing: '-0.02em' },
   cta:      { background: 'none', border: `1.5px solid ${isDark ? '#2A2118' : '#E8E0D0'}`, borderRadius: '2rem', padding: '0.55rem 1.25rem', color: '#8A7968', fontSize: '0.875rem', fontWeight: 600, cursor: 'pointer', whiteSpace: 'nowrap' as const, fontFamily: 'inherit' },
-  grid:     { display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1.25rem' },
   card:     { backgroundColor: isDark ? '#1A1410' : '#FFFFFF', border: `1px solid ${isDark ? '#2A2118' : '#E8E0D0'}`, borderRadius: '1.25rem', padding: '1.5rem', display: 'flex', flexDirection: 'column' as const, gap: '0.6rem', cursor: 'pointer', position: 'relative' as const, overflow: 'hidden' },
   rank:     (gold: boolean) => ({ position: 'absolute' as const, top: '1rem', right: '1rem', width: '1.75rem', height: '1.75rem', borderRadius: '50%', background: gold ? 'linear-gradient(135deg, #FFD700, #FFA500)' : '#E8622A', color: 'white', fontSize: '0.7rem', fontWeight: 800, display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1 }),
   cover:    (bg: string) => ({ height: '200px', background: bg, borderRadius: '0.75rem', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '3.5rem', flexShrink: 0 }),
@@ -29,8 +28,6 @@ const getStyles = (isDark: boolean) => ({
   skel:     (w: string, h: string) => ({ width: w, height: h, borderRadius: '0.5rem', background: isDark ? '#2A2118' : '#E8E0D0' }),
 });
 
-// ── Skeleton ──────────────────────────────────────────────────────
-
 const SkeletonCard = ({ isDark }: { isDark: boolean }) => {
   const s = getStyles(isDark);
   return (
@@ -44,14 +41,9 @@ const SkeletonCard = ({ isDark }: { isDark: boolean }) => {
   );
 };
 
-// ── Book Card ─────────────────────────────────────────────────────
-
 const BookCard = ({ book, index, isDark }: { book: Book; index: number; isDark: boolean }) => {
   const navigate = useNavigate();
-
-  // Guard — must come after hooks, before any property access
   if (!book || !book.title) return null;
-
   const s = getStyles(isDark);
   const coverImage = IMAGE_MAP[book.title];
   const bg = BG_MAP[book.category_name] ?? '#1A1410';
@@ -66,26 +58,16 @@ const BookCard = ({ book, index, isDark }: { book: Book; index: number; isDark: 
       transition={{ delay: index * 0.1, duration: 0.45 }}
       onClick={() => navigate('/signup')}
     >
-      {/* Rank badge */}
       <div style={s.rank(index === 0)}>#{index + 1}</div>
-
-      {/* Cover — real image or coloured fallback */}
       <div style={s.cover(bg)}>
-        {coverImage ? (
-          <img
-            src={coverImage}
-            alt={book.title}
-            style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-          />
-        ) : (
-          <span>📚</span>
-        )}
+        {coverImage
+          ? <img src={coverImage} alt={book.title} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+          : <span>📚</span>
+        }
       </div>
-
       <span style={s.tag}>{book.category_name}</span>
       <p style={s.bktitle}>{book.title}</p>
       <p style={s.author}>{book.author}</p>
-
       <div style={s.footer}>
         <div>
           <p style={s.price}>{formatPrice(book.price)}</p>
@@ -94,10 +76,7 @@ const BookCard = ({ book, index, isDark }: { book: Book; index: number; isDark: 
             <span>{formatRating(book.rating)}</span>
           </div>
         </div>
-        <button
-          style={s.addBtn}
-          onClick={e => { e.stopPropagation(); navigate('/signup'); }}
-        >
+        <button style={s.addBtn} onClick={e => { e.stopPropagation(); navigate('/signup'); }}>
           <ShoppingBag size={14} />
         </button>
       </div>
@@ -105,13 +84,25 @@ const BookCard = ({ book, index, isDark }: { book: Book; index: number; isDark: 
   );
 };
 
-// ── Main Component ────────────────────────────────────────────────
-
 const BestSellers: React.FC = () => {
-  const navigate = useNavigate();
+  const navigate  = useNavigate();
   const { isDark } = useTheme();
   const { books, loading, error } = useBestSellers();
   const s = getStyles(isDark);
+
+  const [activeIndex, setActiveIndex] = useState(0);
+  const carouselRef = useRef<HTMLDivElement>(null);
+
+  const scrollTo = (index: number) => {
+    if (!carouselRef.current) return;
+    const card = carouselRef.current.children[index] as HTMLElement;
+    if (card) {
+      card.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      setActiveIndex(index);
+    }
+  };
+
+  const filteredBooks = books.filter((book): book is Book => !!book?.title);
 
   return (
     <section style={s.section}>
@@ -133,15 +124,70 @@ const BestSellers: React.FC = () => {
           </p>
         )}
 
-        <div style={s.grid}>
+        {/* ── Desktop grid — NO inline display style, controlled purely by CSS ── */}
+        <div className="bs-desktop-grid">
           {loading
             ? [...Array(4)].map((_, i) => <SkeletonCard key={i} isDark={isDark} />)
-            : books
-                .filter((book): book is Book => !!book?.title)
-                .map((book, i) => (
-                  <BookCard key={book.id} book={book} index={i} isDark={isDark} />
-                ))
+            : filteredBooks.map((book, i) => (
+                <BookCard key={book.id} book={book} index={i} isDark={isDark} />
+              ))
           }
+        </div>
+
+        {/* ── Mobile carousel ── */}
+        <div className="bs-mobile-carousel">
+          <div
+            ref={carouselRef}
+            className="bs-carousel-track"
+            onScroll={e => {
+              const el = e.currentTarget;
+              const index = Math.round(el.scrollLeft / el.offsetWidth);
+              setActiveIndex(index);
+            }}
+          >
+            {loading
+              ? [...Array(4)].map((_, i) => (
+                  <div key={i} className="bs-carousel-slide">
+                    <SkeletonCard isDark={isDark} />
+                  </div>
+                ))
+              : filteredBooks.map((book, i) => (
+                  <div key={book.id} className="bs-carousel-slide">
+                    <BookCard book={book} index={i} isDark={isDark} />
+                  </div>
+                ))
+            }
+          </div>
+
+          {!loading && filteredBooks.length > 1 && (
+            <div className="bs-carousel-controls">
+              <button
+                className="bs-carousel-arrow"
+                onClick={() => scrollTo(Math.max(0, activeIndex - 1))}
+                disabled={activeIndex === 0}
+                style={{ color: isDark ? '#8A7968' : '#8B5E3C', borderColor: isDark ? '#2A2118' : '#E8E0D0' }}
+              >
+                <ChevronLeft size={16} />
+              </button>
+              <div className="bs-carousel-dots">
+                {filteredBooks.map((_, i) => (
+                  <button
+                    key={i}
+                    className={`bs-carousel-dot${i === activeIndex ? ' bs-carousel-dot--active' : ''}`}
+                    onClick={() => scrollTo(i)}
+                  />
+                ))}
+              </div>
+              <button
+                className="bs-carousel-arrow"
+                onClick={() => scrollTo(Math.min(filteredBooks.length - 1, activeIndex + 1))}
+                disabled={activeIndex === filteredBooks.length - 1}
+                style={{ color: isDark ? '#8A7968' : '#8B5E3C', borderColor: isDark ? '#2A2118' : '#E8E0D0' }}
+              >
+                <ChevronRight size={16} />
+              </button>
+            </div>
+          )}
         </div>
 
       </div>

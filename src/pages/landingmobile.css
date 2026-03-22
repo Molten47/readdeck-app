@@ -1,0 +1,136 @@
+/* ════════════════════════════════════════════════════════════════
+   landingmobile.css — replace your existing file entirely
+   ════════════════════════════════════════════════════════════════ */
+
+/* ── BestSellers desktop grid — defined here, not inline ── */
+.bs-desktop-grid {
+  display:               grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap:                   1.25rem;
+}
+
+/* Mobile carousel — hidden on desktop */
+.bs-mobile-carousel { display: none; }
+
+.bs-carousel-track {
+  display:                    flex;
+  overflow-x:                 scroll;
+  scroll-snap-type:           x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior:            smooth;
+  gap:                        1rem;
+  padding:                    0.25rem 0.25rem 0.5rem;
+  scrollbar-width:            none;
+}
+.bs-carousel-track::-webkit-scrollbar { display: none; }
+
+.bs-carousel-slide {
+  scroll-snap-align: center;
+  flex:              0 0 85vw;
+  max-width:         22rem;
+}
+
+.bs-carousel-controls {
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  gap:             1rem;
+  margin-top:      1.25rem;
+}
+
+.bs-carousel-arrow {
+  width:           2.25rem;
+  height:          2.25rem;
+  border-radius:   50%;
+  border:          1.5px solid;
+  background:      none;
+  cursor:          pointer;
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  transition:      opacity 0.15s;
+}
+.bs-carousel-arrow:disabled { opacity: 0.3; cursor: default; }
+
+.bs-carousel-dots { display: flex; gap: 0.5rem; }
+
+.bs-carousel-dot {
+  width:         0.5rem;
+  height:        0.5rem;
+  border-radius: 50%;
+  border:        none;
+  background:    #2A2118;
+  cursor:        pointer;
+  padding:       0;
+  transition:    background 0.2s, transform 0.2s;
+}
+.bs-carousel-dot--active {
+  background: #E8622A;
+  transform:  scale(1.3);
+}
+
+/* ── PromoBlocks ── */
+.promo-section  { padding: 7rem 2.5rem; }
+.promo-desktop  { display: flex; align-items: center; }
+.promo-mobile   { display: none; }
+
+.promo-mobile-img {
+  width:         100%;
+  height:        260px;
+  overflow:      hidden;
+  border-radius: 1rem;
+  position:      relative;
+}
+.promo-mobile-content { padding-top: 2rem; }
+
+/* ════════════════════════════════════════════════════════════════
+   MOBILE  ≤ 768px
+   ════════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+
+  /* BestSellers: CSS grid hidden, carousel shown */
+  .bs-desktop-grid    { display: none; }
+  .bs-mobile-carousel { display: block; }
+
+  /* PromoBlocks: row hidden, column shown */
+  .promo-desktop { display: none; }
+  .promo-mobile  { display: block; }
+
+  .promo-section { padding: 3.5rem 1.25rem; }
+
+  .promo-mobile-content h2 { font-size: 2rem !important; }
+
+  /* CTA buttons — equal width row */
+  .promo-mobile-content div[style*="display: flex"] {
+    gap: 0.625rem !important;
+  }
+  .promo-mobile-content div[style*="display: flex"] > button {
+    flex:            1 1 0;
+    min-width:       0;
+    padding:         0.75rem 1rem !important;
+    font-size:       0.875rem !important;
+    justify-content: center;
+    text-align:      center;
+    white-space:     nowrap;
+  }
+}
+
+/* iPhone 14 Pro Max (390–430px) */
+@media (max-width: 430px) {
+  .promo-mobile-content h2      { font-size: 1.875rem !important; }
+  .promo-mobile-content div[style*="display: flex"] > button {
+    padding:   0.7rem 0.875rem !important;
+    font-size: 0.825rem !important;
+  }
+  .promo-mobile-img { height: 240px; }
+}
+
+/* Small phones ≤ 375px */
+@media (max-width: 375px) {
+  .promo-mobile-content h2      { font-size: 1.75rem !important; }
+  .promo-mobile-content div[style*="display: flex"] > button {
+    padding:   0.65rem 0.75rem !important;
+    font-size: 0.8rem !important;
+  }
+  .promo-mobile-img { height: 210px; }
+}

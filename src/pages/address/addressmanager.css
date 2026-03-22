@@ -1,0 +1,309 @@
+/* ── Address Manager Panel ── */
+.addr-manager {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  width: 320px;
+  background: #1A1410;
+  border: 1px solid #2A2118;
+  border-radius: 1rem;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+  z-index: 200;
+  overflow: hidden;
+}
+
+.addr-manager--light {
+  background: #fff;
+  border-color: #E8E0D5;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.12);
+}
+
+/* Header */
+.addr-manager__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.875rem 1rem;
+  border-bottom: 1px solid #2A2118;
+}
+
+.addr-manager--light .addr-manager__header { border-color: #E8E0D5; }
+
+.addr-manager__header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.825rem;
+  font-weight: 700;
+  color: #F5EFE6;
+}
+
+.addr-manager--light .addr-manager__header-left { color: #1A1410; }
+
+.addr-manager__close {
+  background: none;
+  border: none;
+  color: #8A7968;
+  cursor: pointer;
+  padding: 0.2rem;
+  display: flex;
+  transition: color 0.15s;
+}
+.addr-manager__close:hover { color: #E8622A; }
+
+/* List */
+.addr-manager__list {
+  max-height: 220px;
+  overflow-y: auto;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.addr-manager__loading,
+.addr-manager__empty {
+  padding: 1rem;
+  text-align: center;
+  color: #8A7968;
+  font-size: 0.8rem;
+}
+
+.addr-manager__loading {
+  display: flex;
+  justify-content: center;
+}
+
+/* Item */
+.addr-manager__item {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.75rem 0.875rem;
+  background: #0F0C09;
+  border: 1px solid #2A2118;
+  border-radius: 0.6rem;
+}
+
+.addr-manager--light .addr-manager__item {
+  background: #F5EFE8;
+  border-color: #E8E0D5;
+}
+
+.addr-manager__item-body { flex: 1; min-width: 0; }
+
+.addr-manager__item-top {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 0.2rem;
+}
+
+.addr-manager__label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #F5EFE6;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.addr-manager--light .addr-manager__label { color: #1A1410; }
+
+.addr-manager__default-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: #E8622A;
+}
+
+.addr-manager__address {
+  font-size: 0.775rem;
+  color: #C4B49E;
+  margin: 0 0 0.15rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.addr-manager--light .addr-manager__address { color: #3D3020; }
+
+.addr-manager__meta {
+  font-size: 0.72rem;
+  color: #8A7968;
+  margin: 0;
+}
+
+/* Item actions */
+.addr-manager__item-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  flex-shrink: 0;
+}
+
+.addr-manager__action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.6rem;
+  height: 1.6rem;
+  background: #2A2118;
+  border: none;
+  border-radius: 0.4rem;
+  color: #8A7968;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.addr-manager--light .addr-manager__action-btn {
+  background: #E8E0D5;
+}
+
+.addr-manager__action-btn:hover:not(:disabled) {
+  background: rgba(232, 98, 42, 0.15);
+  color: #E8622A;
+}
+
+.addr-manager__action-btn--active {
+  color: #E8622A;
+}
+
+.addr-manager__action-btn--delete:hover:not(:disabled) {
+  background: rgba(239, 68, 68, 0.15);
+  color: #EF4444;
+}
+
+.addr-manager__action-btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+/* Add form */
+.addr-manager__form {
+  overflow: hidden;
+  padding: 0 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.addr-manager__form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}
+
+.addr-manager__input {
+  width: 100%;
+  padding: 0.55rem 0.75rem;
+  background: #0F0C09;
+  border: 1px solid #2A2118;
+  border-radius: 0.5rem;
+  color: #F5EFE6;
+  font-size: 0.8rem;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.15s;
+  box-sizing: border-box;
+}
+
+.addr-manager--light .addr-manager__input {
+  background: #F5EFE8;
+  border-color: #E8E0D5;
+  color: #1A1410;
+}
+
+.addr-manager__input::placeholder { color: #6B5D50; }
+.addr-manager__input:focus { border-color: #E8622A; }
+
+.addr-manager__textarea {
+  resize: none;
+  line-height: 1.5;
+}
+
+.addr-manager__form-error {
+  font-size: 0.775rem;
+  color: #EF4444;
+  margin: 0;
+}
+
+.addr-manager__form-actions {
+  display: flex;
+  gap: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.addr-manager__cancel-btn {
+  flex: 1;
+  padding: 0.55rem;
+  background: #2A2118;
+  border: none;
+  border-radius: 0.5rem;
+  color: #8A7968;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.15s;
+}
+
+.addr-manager__cancel-btn:hover { background: #3D3020; }
+
+.addr-manager__save-btn {
+  flex: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.55rem;
+  background: #E8622A;
+  border: none;
+  border-radius: 0.5rem;
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.15s;
+}
+
+.addr-manager__save-btn:hover:not(:disabled) { background: #D4541F; }
+.addr-manager__save-btn:disabled { opacity: 0.6; cursor: default; }
+
+/* Add button */
+.addr-manager__add-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  width: 100%;
+  padding: 0.75rem;
+  background: transparent;
+  border: none;
+  border-top: 1px solid #2A2118;
+  color: #8A7968;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: color 0.15s, background 0.15s;
+}
+
+.addr-manager__add-btn:hover {
+  color: #E8622A;
+  background: rgba(232, 98, 42, 0.04);
+}
+
+.addr-manager--light .addr-manager__add-btn { border-color: #E8E0D5; }
+
+/* Spinner */
+.addr-manager__spin {
+  animation: addr-spin 0.7s linear infinite;
+}
+
+@keyframes addr-spin {
+  to { transform: rotate(360deg); }
+}

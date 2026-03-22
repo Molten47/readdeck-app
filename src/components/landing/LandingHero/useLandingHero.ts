@@ -16,7 +16,7 @@ export const PHONE_BOOKS = [
 
 export const useLandingHero = () => {
   const [email, setEmail] = useState('');
-  const [submitted, setSubmitted] = useState(false);
+  const [submitted] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = () => {

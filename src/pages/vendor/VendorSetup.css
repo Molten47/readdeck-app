@@ -1,0 +1,446 @@
+/* ════════════════════════════════════════════════════════════════
+   vendorSetup.css — Readdeck Vendor Store Setup Wizard
+   ════════════════════════════════════════════════════════════════ */
+
+/* ── Page shell ── */
+.vs-page {
+  min-height:      100vh;
+  background:      #0F0C09;
+  color:           #F5EFE6;
+  font-family:     inherit;
+  display:         flex;
+  align-items:     stretch;
+}
+.vs-page--light {
+  background: #F5EFE8;
+  color:      #1A1410;
+}
+
+/* ── Two-column inner ── */
+.vs-inner {
+  display:    flex;
+  width:      100%;
+  min-height: 100vh;
+}
+
+/* ── LEFT panel ── */
+.vs-left {
+  width:           22rem;
+  flex-shrink:     0;
+  background:      #0A0806;
+  border-right:    1px solid #1E1812;
+  padding:         2.5rem 1.75rem;
+  display:         flex;
+  flex-direction:  column;
+  gap:             2rem;
+  position:        sticky;
+  top:             0;
+  height:          100vh;
+  overflow-y:      auto;
+}
+.vs-page--light .vs-left {
+  background:   #EDE5DB;
+  border-color: #DDD4C5;
+}
+@media (max-width: 52rem) {
+  .vs-left { display: none; }
+}
+
+/* Header */
+.vs-left__badge {
+  display:       inline-flex;
+  align-items:   center;
+  gap:           0.35rem;
+  font-size:     0.72rem;
+  font-weight:   700;
+  color:         #E8622A;
+  background:    rgba(232,98,42,0.1);
+  border:        1px solid rgba(232,98,42,0.25);
+  border-radius: 999px;
+  padding:       0.25rem 0.65rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.vs-left__title {
+  font-size:      2rem;
+  font-weight:    800;
+  color:          #F5EFE6;
+  margin:         0.75rem 0 0.5rem;
+  line-height:    1.15;
+  letter-spacing: -0.02em;
+}
+.vs-left__title span { color: #E8622A; }
+.vs-page--light .vs-left__title { color: #1A1410; }
+.vs-left__sub {
+  font-size:   0.85rem;
+  color:       #8A7968;
+  line-height: 1.6;
+  margin:      0;
+}
+
+/* ── Step indicators ── */
+.vs-steps {
+  display:        flex;
+  flex-direction: column;
+  gap:            0.875rem;
+}
+.vs-step {
+  display:     flex;
+  align-items: center;
+  gap:         0.75rem;
+  opacity:     0.45;
+  transition:  opacity 0.2s;
+}
+.vs-step--active { opacity: 1; }
+.vs-step--done   { opacity: 0.75; }
+.vs-step__dot {
+  width:           2rem;
+  height:          2rem;
+  border-radius:   50%;
+  border:          2px solid #2A2118;
+  background:      #130F0A;
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  color:           #5A4E42;
+  flex-shrink:     0;
+  transition:      border-color 0.2s, color 0.2s, background 0.2s;
+}
+.vs-step--active .vs-step__dot {
+  border-color: #E8622A;
+  color:        #E8622A;
+  background:   rgba(232,98,42,0.1);
+}
+.vs-step--done .vs-step__dot {
+  border-color: #22C55E;
+  color:        #22C55E;
+  background:   rgba(34,197,94,0.1);
+}
+.vs-step__info {}
+.vs-step__num   { font-size: 0.68rem; color: #5A4E42; margin: 0; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
+.vs-step__label { font-size: 0.85rem; color: #D4C5B0; margin: 0; font-weight: 600; }
+.vs-step--active .vs-step__label { color: #E8622A; }
+.vs-page--light .vs-step__label  { color: #3D3020; }
+
+/* ── Live preview card ── */
+.vs-preview { margin-top: auto; }
+.vs-preview__label {
+  font-size:   0.7rem;
+  font-weight: 700;
+  color:       #5A4E42;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 0.625rem;
+}
+.vs-preview__card {
+  border-radius: 0.875rem;
+  overflow:      hidden;
+  border:        1px solid rgba(255,255,255,0.06);
+}
+.vs-preview__banner {
+  height:          4rem;
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  background:      rgba(0,0,0,0.2);
+}
+.vs-preview__emoji { font-size: 1.75rem; }
+.vs-preview__body  { padding: 0.75rem; }
+.vs-preview__name {
+  font-size:   0.85rem;
+  font-weight: 700;
+  color:       #F5EFE6;
+  margin:      0 0 0.25rem;
+  white-space: nowrap;
+  overflow:    hidden;
+  text-overflow: ellipsis;
+}
+.vs-preview__address {
+  font-size:   0.72rem;
+  color:       #8A7968;
+  margin:      0 0 0.4rem;
+  display:     flex;
+  align-items: center;
+  gap:         0.25rem;
+}
+.vs-preview__genres {
+  display:  flex;
+  flex-wrap: wrap;
+  gap:      0.25rem;
+  margin-bottom: 0.5rem;
+}
+.vs-preview__genre {
+  font-size:     0.62rem;
+  font-weight:   600;
+  color:         #D4C5B0;
+  background:    rgba(255,255,255,0.08);
+  border-radius: 999px;
+  padding:       0.1rem 0.4rem;
+}
+.vs-preview__meta {
+  display:     flex;
+  gap:         0.75rem;
+  font-size:   0.7rem;
+  color:       #8A7968;
+}
+.vs-preview__meta span {
+  display:     flex;
+  align-items: center;
+  gap:         0.2rem;
+}
+
+/* ── RIGHT panel ── */
+.vs-right {
+  flex:            1;
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  padding:         3rem 2rem;
+}
+.vs-form-wrap {
+  width:     100%;
+  max-width: 30rem;
+}
+
+/* Progress bar */
+.vs-progress-bar {
+  height:        3px;
+  background:    #2A2118;
+  border-radius: 999px;
+  margin-bottom: 2rem;
+  overflow:      hidden;
+}
+.vs-progress-bar__fill {
+  height:     100%;
+  background: #E8622A;
+  transition: width 0.4s ease;
+}
+
+/* ── Form ── */
+.vs-form {
+  display:        flex;
+  flex-direction: column;
+  gap:            1.1rem;
+  margin-bottom:  1.5rem;
+}
+.vs-form__title {
+  font-size:   1.35rem;
+  font-weight: 800;
+  color:       #F5EFE6;
+  margin:      0 0 0.15rem;
+  letter-spacing: -0.01em;
+}
+.vs-page--light .vs-form__title { color: #1A1410; }
+.vs-form__sub {
+  font-size: 0.85rem;
+  color:     #8A7968;
+  margin:    0;
+}
+
+/* ── Field ── */
+.vs-field { display: flex; flex-direction: column; gap: 0.4rem; }
+.vs-field__label {
+  font-size:   0.78rem;
+  font-weight: 700;
+  color:       #8A7968;
+  letter-spacing: 0.02em;
+  display:     flex;
+  align-items: center;
+  gap:         0.3rem;
+}
+.vs-field__label span { color: #E8622A; }
+.vs-field__hint { font-weight: 400; color: #5A4E42; font-size: 0.72rem; }
+.vs-field__hint-text { font-size: 0.73rem; color: #5A4E42; margin: 0.2rem 0 0; }
+.vs-field__input {
+  padding:       0.65rem 0.875rem;
+  background:    #130F0A;
+  border:        1.5px solid #2A2118;
+  border-radius: 0.625rem;
+  color:         #F5EFE6;
+  font-size:     0.875rem;
+  font-family:   inherit;
+  outline:       none;
+  transition:    border-color 0.18s;
+  width:         100%;
+  box-sizing:    border-box;
+}
+.vs-field__input:focus { border-color: rgba(232,98,42,0.5); }
+.vs-field__input::placeholder { color: #5A4E42; }
+.vs-page--light .vs-field__input {
+  background:  #EDE5DB;
+  border-color: #DDD4C5;
+  color:        #1A1410;
+}
+.vs-field__textarea { resize: vertical; min-height: 4.5rem; }
+
+/* Row */
+.vs-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap:     0.75rem;
+}
+
+/* ── Genre chips ── */
+.vs-genre-grid {
+  display:  flex;
+  flex-wrap: wrap;
+  gap:      0.4rem;
+}
+.vs-genre-chip {
+  padding:       0.35rem 0.75rem;
+  border-radius: 999px;
+  border:        1.5px solid #2A2118;
+  background:    transparent;
+  color:         #8A7968;
+  font-size:     0.78rem;
+  font-weight:   600;
+  cursor:        pointer;
+  font-family:   inherit;
+  transition:    border-color 0.15s, color 0.15s, background 0.15s;
+}
+.vs-genre-chip:hover { border-color: rgba(232,98,42,0.4); color: #D4C5B0; }
+.vs-genre-chip--active {
+  border-color: #E8622A;
+  color:        #E8622A;
+  background:   rgba(232,98,42,0.08);
+}
+
+/* ── Emoji picker ── */
+.vs-emoji-grid {
+  display:  flex;
+  flex-wrap: wrap;
+  gap:      0.4rem;
+}
+.vs-emoji-btn {
+  width:         2.5rem;
+  height:        2.5rem;
+  border-radius: 0.5rem;
+  border:        2px solid #2A2118;
+  background:    #130F0A;
+  font-size:     1.1rem;
+  cursor:        pointer;
+  display:       flex;
+  align-items:   center;
+  justify-content: center;
+  transition:    border-color 0.15s;
+}
+.vs-emoji-btn:hover      { border-color: rgba(232,98,42,0.4); }
+.vs-emoji-btn--active    { border-color: #E8622A; background: rgba(232,98,42,0.08); }
+
+/* ── Color picker ── */
+.vs-color-grid {
+  display:  flex;
+  flex-wrap: wrap;
+  gap:      0.5rem;
+}
+.vs-color-btn {
+  width:         2rem;
+  height:        2rem;
+  border-radius: 50%;
+  border:        2.5px solid transparent;
+  cursor:        pointer;
+  transition:    border-color 0.15s, transform 0.15s;
+}
+.vs-color-btn:hover      { transform: scale(1.12); }
+.vs-color-btn--active    { border-color: #E8622A; transform: scale(1.12); }
+
+/* ── Input with @ prefix ── */
+.vs-input-prefix {
+  position: relative;
+}
+.vs-input-prefix__at {
+  position:  absolute;
+  left:      0.875rem;
+  top:       50%;
+  transform: translateY(-50%);
+  color:     #5A4E42;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+.vs-field__input--prefixed { padding-left: 1.75rem; }
+
+/* ── Summary (step 4) ── */
+.vs-summary {
+  background:    #130F0A;
+  border:        1px solid #2A2118;
+  border-radius: 0.75rem;
+  padding:       1rem 1.1rem;
+  display:       flex;
+  flex-direction: column;
+  gap:           0.6rem;
+  margin-top:    0.5rem;
+}
+.vs-page--light .vs-summary { background: #EDE5DB; border-color: #DDD4C5; }
+.vs-summary__label {
+  font-size:   0.72rem;
+  font-weight: 700;
+  color:       #5A4E42;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+.vs-summary__row {
+  display:     flex;
+  align-items: flex-start;
+  gap:         0.5rem;
+  font-size:   0.83rem;
+  color:       #8A7968;
+  line-height: 1.4;
+}
+.vs-summary__row span { flex: 1; }
+
+/* ── Error ── */
+.vs-error {
+  font-size:  0.8rem;
+  color:      #EF4444;
+  margin:     0 0 0.75rem;
+  padding:    0.65rem 0.875rem;
+  background: rgba(239,68,68,0.06);
+  border:     1px solid rgba(239,68,68,0.2);
+  border-radius: 0.5rem;
+}
+
+/* ── Nav buttons ── */
+.vs-nav {
+  display:     flex;
+  align-items: center;
+  gap:         0.75rem;
+}
+.vs-btn {
+  display:       inline-flex;
+  align-items:   center;
+  gap:           0.4rem;
+  padding:       0.65rem 1.25rem;
+  border-radius: 0.625rem;
+  border:        none;
+  font-size:     0.875rem;
+  font-weight:   600;
+  cursor:        pointer;
+  font-family:   inherit;
+  transition:    background 0.18s, opacity 0.18s, transform 0.15s;
+}
+.vs-btn--primary {
+  background: #E8622A;
+  color:      #fff;
+}
+.vs-btn--primary:hover:not(:disabled) {
+  background: #D05420;
+  transform:  translateY(-1px);
+}
+.vs-btn--primary:disabled { opacity: 0.6; cursor: default; }
+.vs-btn--ghost {
+  background: transparent;
+  border:     1.5px solid #2A2118;
+  color:      #8A7968;
+}
+.vs-btn--ghost:hover { border-color: rgba(232,98,42,0.4); color: #D4C5B0; }
+.vs-btn--launch {
+  flex:            1;
+  justify-content: center;
+  padding:         0.75rem 1.5rem;
+  font-size:       0.95rem;
+}
+
+/* ── Spin ── */
+.vs-spin { animation: vs-rotate 0.75s linear infinite; }
+@keyframes vs-rotate { to { transform: rotate(360deg); } }

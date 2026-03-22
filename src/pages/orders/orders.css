@@ -1,0 +1,126 @@
+/* ── Page ── */
+.ord-page { min-height: 100vh; background-color: #0F0C09; padding-bottom: 4rem; transition: background-color 0.3s; }
+.ord-page--light { background-color: #FAF7F2; }
+
+/* ── Header ── */
+.ord-header { padding: 6rem 2.5rem 2rem; border-bottom: 1px solid #2A2118; }
+.ord-page--light .ord-header { border-color: #E8E0D5; }
+.ord-header__inner { max-width: 52rem; margin: 0 auto; }
+.ord-header__title { font-size: 2rem; font-weight: 700; color: #F5EFE6; margin: 0 0 0.25rem; letter-spacing: -0.03em; }
+.ord-page--light .ord-header__title { color: #1A1410; }
+.ord-header__sub { font-size: 0.9rem; color: #8A7968; margin: 0; }
+
+/* ── Filters ── */
+.ord-filters {
+  display: flex; gap: 0.5rem;
+  padding: 1.25rem 2.5rem;
+  max-width: 52rem; margin: 0 auto;
+  overflow-x: auto; scrollbar-width: none;
+}
+.ord-filters::-webkit-scrollbar { display: none; }
+
+.ord-filter {
+  padding: 0.4rem 0.9rem; border-radius: 999px;
+  border: 1px solid #2A2118; background: transparent;
+  color: #8A7968; font-size: 0.78rem; cursor: pointer;
+  white-space: nowrap; transition: all 0.2s;
+}
+.ord-filter:hover { border-color: #E8622A; color: #E8622A; }
+.ord-filter--active { background: #E8622A; border-color: #E8622A; color: #fff; }
+.ord-page--light .ord-filter { border-color: #E8E0D5; color: #6B5D50; }
+
+/* ── List ── */
+.ord-list { max-width: 52rem; margin: 0 auto; padding: 0.5rem 2.5rem; display: flex; flex-direction: column; gap: 0.75rem; }
+
+/* ── Card ── */
+.ord-card {
+  display: flex; align-items: center; justify-content: space-between;
+  background: #1A1410; border: 1px solid #2A2118;
+  border-radius: 0.875rem; padding: 1rem 1.25rem;
+  cursor: pointer; transition: border-color 0.2s, transform 0.15s;
+}
+.ord-card:hover { border-color: #3D2E1E; transform: translateX(2px); }
+.ord-page--light .ord-card { background: #fff; border-color: #E8E0D5; }
+
+.ord-card__left { display: flex; align-items: center; gap: 0.875rem; }
+.ord-card__icon {
+  width: 2.5rem; height: 2.5rem; border-radius: 0.6rem;
+  background: rgba(232, 98, 42, 0.1);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.ord-card__id { font-size: 0.875rem; font-weight: 600; color: #F5EFE6; margin: 0 0 0.25rem; font-family: monospace; }
+.ord-page--light .ord-card__id { color: #1A1410; }
+.ord-card__meta { display: flex; align-items: center; gap: 0.25rem; font-size: 0.75rem; color: #8A7968; margin: 0; }
+
+.ord-card__right { display: flex; align-items: center; gap: 1rem; }
+.ord-card__status { font-size: 0.78rem; font-weight: 600; }
+.ord-card__amount { font-size: 0.875rem; font-weight: 700; color: #E8622A; margin: 0; }
+
+/* ── Skeleton ── */
+.ord-skeleton {
+  height: 5rem; border-radius: 0.875rem;
+  background: linear-gradient(90deg, #1A1410 25%, #2A2118 50%, #1A1410 75%);
+  background-size: 200% 100%;
+  animation: ord-shimmer 1.4s infinite;
+}
+@keyframes ord-shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+/* ── Empty ── */
+.ord-empty {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 0.75rem; padding: 5rem 0; color: #8A7968; font-size: 0.875rem;
+}
+.ord-empty__cta {
+  margin-top: 0.5rem; padding: 0.6rem 1.5rem;
+  background: #E8622A; border: none; border-radius: 999px;
+  color: #fff; font-size: 0.85rem; cursor: pointer;
+  transition: background 0.2s;
+}
+.ord-empty__cta:hover { background: #D4531C; }
+
+/* ── Load more ── */
+.ord-load-more {
+  display: flex;
+  justify-content: center;
+  padding: 1.25rem 0 0.5rem;
+}
+
+.ord-load-more__btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.75rem;
+  background: none;
+  border: 1px solid #2A2118;
+  border-radius: 2rem;
+  color: #8A7968;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.ord-load-more__btn:hover:not(:disabled) {
+  border-color: #E8622A;
+  color: #E8622A;
+}
+
+.ord-load-more__btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.ord-load-more__spin {
+  animation: ord-load-spin 0.75s linear infinite;
+}
+
+@keyframes ord-load-spin {
+  to { transform: rotate(360deg); }
+}
+
+.ord-page--light .ord-load-more__btn {
+  border-color: #E8E0D5;
+  color: #8A7968;
+}
