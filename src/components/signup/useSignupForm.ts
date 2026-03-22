@@ -71,7 +71,7 @@ export const useSignupForm = () => {
         username: response.username,
         email: response.email,
         created_at: new Date().toISOString(),
-      } as MeResponse);
+      } as unknown as MeResponse);
       setTimeout(() => navigate('/dashboard'), 1000);
     }
   };
