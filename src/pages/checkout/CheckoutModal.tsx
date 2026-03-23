@@ -8,7 +8,7 @@ import type { CartGroup } from '../../context/CartContext';
 import { useCheckout } from './useCheckout';
 import { useTheme } from '../../context/ThemeContext';
 import BookCover from '../../components/dashboard/Navbar/components/BookCover';
-import './checkoutModal.css';
+import './checkoutmodal.css';
 
 interface CheckoutModalProps {
   group:   CartGroup;
