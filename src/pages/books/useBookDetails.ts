@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
-import axios from 'axios';
-
-const API = import.meta.env.VITE_API_URL ?? 'http://localhost:3000';
+import axiosInstance from '../../api/axiosInstance';
 
 export interface BookDetail {
   id:             string;
@@ -37,9 +35,9 @@ export interface BookstoreAvailability {
 }
 
 export function useBookDetail() {
-  const { id }            = useParams<{ id: string }>();
-  const [searchParams]    = useSearchParams();
-  const preselectedStore  = searchParams.get('store'); // ?store=<bookstore_id>
+  const { id }           = useParams<{ id: string }>();
+  const [searchParams]   = useSearchParams();
+  const preselectedStore = searchParams.get('store');
 
   const [book,         setBook]         = useState<BookDetail | null>(null);
   const [availability, setAvailability] = useState<BookstoreAvailability[]>([]);
@@ -53,15 +51,13 @@ export function useBookDetail() {
       try {
         setLoading(true);
         const [bookRes, availRes] = await Promise.all([
-          axios.get(`${API}/books/${id}`,              { withCredentials: true }),
-          axios.get(`${API}/books/${id}/availability`, { withCredentials: true }),
+          axiosInstance.get(`/books/${id}`),
+          axiosInstance.get(`/books/${id}/availability`),
         ]);
         setBook(bookRes.data.book);
         const stores: BookstoreAvailability[] = availRes.data.availability ?? [];
         setAvailability(stores);
 
-        // If coming from a bookstore page, pre-select that store
-        // Otherwise auto-select first open + in-stock store
         if (preselectedStore && stores.some(s => s.bookstore_id === preselectedStore)) {
           setSelected(preselectedStore);
         } else {

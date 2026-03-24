@@ -3,9 +3,7 @@ import { useNavigate }    from 'react-router-dom';
 import { useAuth }        from '../../../context/AuthContext';
 import { useTheme }       from '../../../context/ThemeContext';
 import { useCartContext } from '../../../context/CartContext';
-import axios from 'axios';
-
-const API = import.meta.env.VITE_API_URL ?? 'http://localhost:3000';
+import axiosInstance      from '../../../api/axiosInstance';
 
 export const useNavbar = () => {
   const [isScrolled,     setIsScrolled]     = useState(false);
@@ -19,23 +17,22 @@ export const useNavbar = () => {
   const avatarRef   = useRef<HTMLDivElement>(null);
   const cartRef     = useRef<HTMLDivElement>(null);
 
-  // Swipe detection refs
   const touchStartX = useRef<number | null>(null);
   const touchStartY = useRef<number | null>(null);
 
-  const navigate                                      = useNavigate();
+  const navigate                                         = useNavigate();
   const { user, loading: authLoading, logout, isVendor } = useAuth();
-  const { theme, toggleTheme, isDark }                = useTheme();
-  const { cart, loading: cartLoading }                = useCartContext();
+  const { theme, toggleTheme, isDark }                   = useTheme();
+  const { cart, loading: cartLoading }                   = useCartContext();
 
-  // Scroll detection
+  // ── Scroll detection ──────────────────────────────────────────
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener('scroll', onScroll);
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // Close drawer on route change / resize to desktop
+  // ── Close drawer on resize to desktop ─────────────────────────
   useEffect(() => {
     const onResize = () => {
       if (window.innerWidth >= 640) setDrawerOpen(false);
@@ -44,7 +41,7 @@ export const useNavbar = () => {
     return () => window.removeEventListener('resize', onResize);
   }, []);
 
-  // Lock body scroll when drawer is open
+  // ── Lock body scroll when drawer is open ──────────────────────
   useEffect(() => {
     if (drawerOpen) {
       document.body.style.overflow = 'hidden';
@@ -54,7 +51,7 @@ export const useNavbar = () => {
     return () => { document.body.style.overflow = ''; };
   }, [drawerOpen]);
 
-  // Click outside to close dropdowns
+  // ── Click outside to close dropdowns ─────────────────────────
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
@@ -88,12 +85,12 @@ export const useNavbar = () => {
     // Only register horizontal swipes (not accidental vertical scrolls)
     if (deltaY > 60) return;
 
-    // Swipe right (from left edge, within 60px) → open
+    // Swipe right from left edge → open
     if (!drawerOpen && deltaX > 50 && touchStartX.current < 60) {
       setDrawerOpen(true);
     }
 
-    // Swipe left (when open) → close
+    // Swipe left when open → close
     if (drawerOpen && deltaX < -50) {
       setDrawerOpen(false);
     }
@@ -102,15 +99,15 @@ export const useNavbar = () => {
     touchStartY.current = null;
   }, [drawerOpen]);
 
-  // Fetch active orders count
+  // ── Fetch active orders count ─────────────────────────────────
   useEffect(() => {
     if (authLoading || !user) {
       setOrdersCount(0);
       return;
     }
     const controller = new AbortController();
-    axios
-      .get(`${API}/orders`, { withCredentials: true, signal: controller.signal })
+    axiosInstance
+      .get('/orders', { signal: controller.signal })
       .then(r => {
         const active = (r.data.orders ?? []).filter((o: { status: string }) =>
           ['pending', 'confirmed', 'preparing', 'in_transit'].includes(o.status)
