@@ -1,7 +1,5 @@
 import { useEffect, useState, useCallback } from 'react';
-import axios from 'axios';
-
-const API = import.meta.env.VITE_API_URL ?? 'http://localhost:3000';
+import axiosInstance from '../../api/axiosInstance';
 
 export interface OrderSummary {
   id:           string;
@@ -42,7 +40,6 @@ export function useOrders() {
   const [cursor,      setCursor]      = useState<string | null>(null);
   const [hasMore,     setHasMore]     = useState(false);
 
-  // Reset and fetch first page whenever filter changes
   useEffect(() => {
     setOrders([]);
     setCursor(null);
@@ -53,8 +50,8 @@ export function useOrders() {
     params.set('limit', String(PAGE_LIMIT));
     if (filter) params.set('status', filter);
 
-    axios
-      .get(`${API}/orders?${params}`, { withCredentials: true })
+    axiosInstance
+      .get(`/orders?${params}`)
       .then(r => {
         setOrders(r.data.orders ?? []);
         setTotal(r.data.total ?? 0);
@@ -66,7 +63,6 @@ export function useOrders() {
       .finally(() => setLoading(false));
   }, [filter]);
 
-  // Load next page
   const loadMore = useCallback(async () => {
     if (!hasMore || !cursor || loadingMore) return;
     setLoadingMore(true);
@@ -77,7 +73,7 @@ export function useOrders() {
       params.set('cursor', cursor);
       if (filter) params.set('status', filter);
 
-      const r = await axios.get(`${API}/orders?${params}`, { withCredentials: true });
+      const r = await axiosInstance.get(`/orders?${params}`);
       setOrders(prev => [...prev, ...(r.data.orders ?? [])]);
       setHasMore(r.data.has_more ?? false);
       setCursor(r.data.next_cursor ?? null);

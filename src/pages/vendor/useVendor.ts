@@ -1,8 +1,6 @@
 import { useState, useRef } from 'react';
-import axios from 'axios';
+import axiosInstance from '../../api/axiosInstance';
 import { useNavigate } from 'react-router-dom';
-
-const API = import.meta.env.VITE_API_URL ?? 'http://localhost:3000';
 
 export type SetupStep = 1 | 2 | 3 | 4;
 
@@ -104,35 +102,27 @@ export function useVendorSetup() {
     setError(null);
 
     try {
-      await axios.post(
-        `${API}/vendor/bookstore`,
-        {
-          name:                  form.name.trim(),
-          address:               form.address.trim(),
-          city:                  form.city.trim(),
-          district:              form.district.trim(),
-          description:           form.description.trim(),
-          genres:                form.genres,
-          image_emoji:           form.image_emoji,
-          banner_color:          form.banner_color,
-          delivery_fee:          parseFloat(form.delivery_fee),
-          minimum_order:         parseFloat(form.minimum_order),
-          delivery_time_minutes: parseInt(form.delivery_time_minutes, 10),
-          opening_hours:         form.opening_hours.trim(),
-          instagram:             form.instagram.trim() || null,
-          website:               form.website.trim()   || null,
-        },
-        { withCredentials: true },
-      );
+      await axiosInstance.post('/vendor/bookstore', {
+        name:                  form.name.trim(),
+        address:               form.address.trim(),
+        city:                  form.city.trim(),
+        district:              form.district.trim(),
+        description:           form.description.trim(),
+        genres:                form.genres,
+        image_emoji:           form.image_emoji,
+        banner_color:          form.banner_color,
+        delivery_fee:          parseFloat(form.delivery_fee),
+        minimum_order:         parseFloat(form.minimum_order),
+        delivery_time_minutes: parseInt(form.delivery_time_minutes, 10),
+        opening_hours:         form.opening_hours.trim(),
+        instagram:             form.instagram.trim() || null,
+        website:               form.website.trim()   || null,
+      });
 
-      // Show success state briefly so the user sees feedback
-      // then navigate — gives the vendor API time to see the new bookstore
       setSuccess(true);
       setSubmitting(false);
 
       setTimeout(() => {
-        // Use window.location for a hard redirect — this forces VendorDashboard
-        // to remount and re-fetch stats fresh, so has_bookstore will be true
         window.location.href = '/vendor';
       }, 1200);
 
@@ -141,7 +131,7 @@ export function useVendorSetup() {
         ?? err?.response?.data?.message
         ?? 'Failed to create bookstore. Try again.';
       setError(msg);
-      submitLock.current = false; // unlock so they can retry
+      submitLock.current = false;
       setSubmitting(false);
     }
   };

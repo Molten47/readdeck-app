@@ -1,8 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
-import axios from 'axios';
+import axiosInstance from '../../api/axiosInstance';
 import { useAuth } from '../../context/AuthContext';
-
-const API = import.meta.env.VITE_API_URL ?? 'http://localhost:3000';
 
 export interface VendorApplication {
   id:            string;
@@ -76,8 +74,8 @@ export function useBecomeVendor() {
 
   // ── On mount: check for existing application ──────────────────
   useEffect(() => {
-    axios
-      .get(`${API}/vendor/status`, { withCredentials: true })
+    axiosInstance
+      .get('/vendor/status')
       .then(r => setExisting(r.data))
       .catch(() => {})
       .finally(() => setLoading(false));
@@ -90,16 +88,12 @@ export function useBecomeVendor() {
     stopPolling();
 
     try {
-      // 1. Refresh the JWT — this issues a NEW cookie with role: vendor
-      //    so POST /vendor/bookstore will accept it
-      await axios.post(`${API}/auth/refresh`, {}, { withCredentials: true });
-
-      // 2. Re-fetch /auth/me with the new token so AuthContext updates
-      const meRes = await axios.get(`${API}/auth/me`, { withCredentials: true });
+      await axiosInstance.post('/auth/refresh');
+      const meRes = await axiosInstance.get('/auth/me');
       setUser(meRes.data);
     } catch {
-      // If refresh fails, the user can log out and back in
-      // Still show the celebration — the modal guides them forward
+      // If refresh fails, user can log out and back in
+      // Still show celebration — modal guides them forward
     }
 
     setShowCelebration(true);
@@ -117,7 +111,7 @@ export function useBecomeVendor() {
       }
 
       try {
-        const r   = await axios.get(`${API}/vendor/status`, { withCredentials: true });
+        const r   = await axiosInstance.get('/vendor/status');
         const app: VendorApplication = r.data;
 
         consecutiveFails.current = 0;
@@ -139,7 +133,6 @@ export function useBecomeVendor() {
     if (existing?.status === 'pending' || existing?.status === 'reviewing') {
       startPolling();
     }
-    // Already approved on mount (e.g. page reload after approval)
     if (existing?.status === 'approved') {
       handleApproval();
     }
@@ -158,7 +151,7 @@ export function useBecomeVendor() {
     }
     setSubmitting(true);
     try {
-      const r = await axios.post(`${API}/vendor/apply`, form, { withCredentials: true });
+      const r = await axiosInstance.post('/vendor/apply', form);
       setExisting(r.data);
       setSubmitted(true);
       startPolling();
