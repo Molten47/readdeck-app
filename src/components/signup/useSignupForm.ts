@@ -72,7 +72,7 @@ export const useSignupForm = () => {
         email: response.email,
         created_at: new Date().toISOString(),
       } as unknown as MeResponse);
-      setTimeout(() => navigate('/dashboard'), 1000);
+      navigate('/dashboard')
     }
   };
 

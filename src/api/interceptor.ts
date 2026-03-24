@@ -49,6 +49,7 @@ const onResponseError = (instance: AxiosInstance) => async (error: AxiosError): 
     } catch (refreshError) {
       // Refresh failed — session dead, redirect to login
       processQueue(refreshError);
+      localStorage.removeItem('readdeck_user'); 
       window.location.href = '/login';
       return Promise.reject(refreshError);
 

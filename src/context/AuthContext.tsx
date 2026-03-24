@@ -11,15 +11,40 @@ interface AuthContextType {
   logout:    () => Promise<void>;
 }
 
+const AUTH_CACHE_KEY = 'readdeck_user';
+
+function readCache(): MeResponse | null {
+  try {
+    const raw = localStorage.getItem(AUTH_CACHE_KEY);
+    return raw ? (JSON.parse(raw) as MeResponse) : null;
+  } catch {
+    return null;
+  }
+}
+
+function writeCache(user: MeResponse | null) {
+  if (user) localStorage.setItem(AUTH_CACHE_KEY, JSON.stringify(user));
+  else localStorage.removeItem(AUTH_CACHE_KEY);
+}
+
 const AuthContext = createContext<AuthContextType | null>(null);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [user,    setUser]    = useState<MeResponse | null>(null);
-  const [loading, setLoading] = useState(true);
+  const cached = readCache();
+
+  // If we have a cached user, start with it — no spinner
+  const [user,    setUserState] = useState<MeResponse | null>(cached);
+  const [loading, setLoading]   = useState(!cached); // only show loader if no cache
+
+  const setUser = (u: MeResponse | null) => {
+    writeCache(u);
+    setUserState(u);
+  };
 
   useEffect(() => {
+    // Always validate in background — but don't block UI if cache exists
     getMe()
-      .then(setUser)
+      .then(fresh => setUser(fresh))
       .catch(() => setUser(null))
       .finally(() => setLoading(false));
   }, []);
