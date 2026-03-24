@@ -1,8 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
-import axios from 'axios';
+import axiosInstance from '../api/axiosInstance';
 import { useAuth } from './AuthContext';
-
-const API = import.meta.env.VITE_API_URL ?? 'http://localhost:3000';
 
 // ── Types ─────────────────────────────────────────────────────────
 
@@ -29,7 +27,6 @@ export interface Cart {
   item_count: number;
 }
 
-// Groups cart items by bookstore for the checkout UI
 export interface CartGroup {
   bookstore_id:   string;
   bookstore_name: string;
@@ -71,7 +68,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     if (!user) return;
     setLoading(true);
     try {
-      const res = await axios.get(`${API}/cart`, { withCredentials: true });
+      const res = await axiosInstance.get('/cart');
       setCart(res.data);
       setError(null);
     } catch {
@@ -108,11 +105,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const addItem = async (book_id: string, quantity: number) => {
     try {
-      const res = await axios.post(
-        `${API}/cart/items`,
-        { book_id, quantity },
-        { withCredentials: true }
-      );
+      const res = await axiosInstance.post('/cart/items', { book_id, quantity });
       setCart(res.data);
     } catch {
       setError('Failed to add item');
@@ -121,11 +114,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const updateQuantity = async (item_id: string, quantity: number) => {
     try {
-      const res = await axios.patch(
-        `${API}/cart/items/${item_id}`,
-        { quantity },
-        { withCredentials: true }
-      );
+      const res = await axiosInstance.patch(`/cart/items/${item_id}`, { quantity });
       setCart(res.data);
     } catch {
       setError('Failed to update quantity');
@@ -134,10 +123,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const removeItem = async (item_id: string) => {
     try {
-      const res = await axios.delete(
-        `${API}/cart/items/${item_id}`,
-        { withCredentials: true }
-      );
+      const res = await axiosInstance.delete(`/cart/items/${item_id}`);
       setCart(res.data);
     } catch {
       setError('Failed to remove item');
@@ -146,7 +132,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const clearCart = async () => {
     try {
-      await axios.delete(`${API}/cart`, { withCredentials: true });
+      await axiosInstance.delete('/cart');
       setCart(prev => prev ? { ...prev, items: [], total: 0, item_count: 0 } : null);
     } catch {
       setError('Failed to clear cart');
@@ -154,7 +140,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const placeOrder = async (payload: PlaceOrderPayload) => {
-    const res = await axios.post(`${API}/orders`, payload, { withCredentials: true });
+    const res = await axiosInstance.post('/orders', payload);
     await fetchCart();
     return res.data;
   };
