@@ -1,20 +1,18 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ShoppingCart, BookOpen } from 'lucide-react';
-import type { Cart } from '../../../../context/CartContext';
+import { useCartContext } from '../../../../context/CartContext';
 
 interface Props {
-  open:        boolean;
-  setOpen:     (o: boolean | ((prev: boolean) => boolean)) => void;
-  cartRef:     React.RefObject<HTMLDivElement | null>;
-  cart:        Cart | null;
-  cartLoading: boolean;
-  navigate:    (path: string) => void;
+  open:     boolean;
+  setOpen:  (o: boolean | ((prev: boolean) => boolean)) => void;
+  cartRef:  React.RefObject<HTMLDivElement | null>;
+  navigate: (path: string) => void;
 }
 
-const CartDropdown: React.FC<Props> = ({
-  open, setOpen, cartRef, cart, cartLoading, navigate,
-}) => {
+const CartDropdown: React.FC<Props> = ({ open, setOpen, cartRef, navigate }) => {
+  const { cart, loading: cartLoading } = useCartContext(); // ← reads live from context
+
   const previewItems = cart?.items.slice(0, 3) ?? [];
   const hasMore      = (cart?.item_count ?? 0) > 3;
 

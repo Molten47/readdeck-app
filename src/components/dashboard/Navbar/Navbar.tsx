@@ -39,7 +39,6 @@ const Navbar: React.FC = () => {
     user, handleLogout,
     isDark, toggleTheme,
     navItems, navigate,
-    cart, cartLoading,
     ordersCount,
     isVendor,
     handleTouchStart,
@@ -176,8 +175,6 @@ const Navbar: React.FC = () => {
             open={cartOpen}
             setOpen={setCartOpen}
             cartRef={cartRef}
-            cart={cart}
-            cartLoading={cartLoading}
             navigate={navigate}
           />
 

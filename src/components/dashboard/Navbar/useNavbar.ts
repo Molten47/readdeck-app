@@ -2,7 +2,6 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { useNavigate }    from 'react-router-dom';
 import { useAuth }        from '../../../context/AuthContext';
 import { useTheme }       from '../../../context/ThemeContext';
-import { useCartContext } from '../../../context/CartContext';
 import axiosInstance      from '../../../api/axiosInstance';
 
 export const useNavbar = () => {
@@ -23,7 +22,7 @@ export const useNavbar = () => {
   const navigate                                         = useNavigate();
   const { user, loading: authLoading, logout, isVendor } = useAuth();
   const { theme, toggleTheme, isDark }                   = useTheme();
-  const { cart, loading: cartLoading }                   = useCartContext();
+  
 
   // ── Scroll detection ──────────────────────────────────────────
   useEffect(() => {
@@ -143,7 +142,6 @@ export const useNavbar = () => {
     user, handleLogout,
     theme, toggleTheme, isDark,
     navItems, navigate,
-    cart, cartLoading,
     ordersCount,
     isVendor,
     handleTouchStart,
