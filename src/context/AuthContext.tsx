@@ -1,21 +1,22 @@
 import { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
-import { getMe, logout as logoutApi } from '../auth/auth';
+import { logout as logoutApi } from '../auth/auth';
+import { silentAxios } from '../api/axiosInstance';
 import type { MeResponse } from '../types/auth';
 
 interface AuthContextType {
-  user:      MeResponse | null;
-  loading:   boolean;
-  isVendor:  boolean;
-  isAdmin:   boolean;
-  setUser:   (user: MeResponse | null) => void;
-  logout:    () => Promise<void>;
+  user:     MeResponse | null;
+  loading:  boolean;
+  isVendor: boolean;
+  isAdmin:  boolean;
+  setUser:  (user: MeResponse | null) => void;
+  logout:   () => Promise<void>;
 }
 
-const AUTH_CACHE_KEY = 'readdeck_user';
+const CACHE_KEY = 'readdeck_user';
 
 function readCache(): MeResponse | null {
   try {
-    const raw = localStorage.getItem(AUTH_CACHE_KEY);
+    const raw = localStorage.getItem(CACHE_KEY);
     return raw ? (JSON.parse(raw) as MeResponse) : null;
   } catch {
     return null;
@@ -23,8 +24,8 @@ function readCache(): MeResponse | null {
 }
 
 function writeCache(user: MeResponse | null) {
-  if (user) localStorage.setItem(AUTH_CACHE_KEY, JSON.stringify(user));
-  else localStorage.removeItem(AUTH_CACHE_KEY);
+  if (user) localStorage.setItem(CACHE_KEY, JSON.stringify(user));
+  else localStorage.removeItem(CACHE_KEY);
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -32,9 +33,8 @@ const AuthContext = createContext<AuthContextType | null>(null);
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const cached = readCache();
 
-  // If we have a cached user, start with it — no spinner
   const [user,    setUserState] = useState<MeResponse | null>(cached);
-  const [loading, setLoading]   = useState(!cached); // only show loader if no cache
+  const [loading, setLoading]   = useState(false);
 
   const setUser = (u: MeResponse | null) => {
     writeCache(u);
@@ -42,11 +42,20 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   useEffect(() => {
-    // Always validate in background — but don't block UI if cache exists
-    getMe()
-      .then(fresh => setUser(fresh))
-      .catch(() => setUser(null))
-      .finally(() => setLoading(false));
+    // Use silentAxios — a 401 here must NOT trigger the interceptor logout
+    // On mobile, cookies may not persist, so getMe() failing is expected
+    // We only clear the user if we get a definitive non-401 failure
+    silentAxios.get<MeResponse>('/auth/me')
+      .then(res => setUser(res.data))
+      .catch(err => {
+        const status = err?.response?.status;
+        if (status === 401 || status === undefined) {
+          // Cookie missing or network issue — keep cached user, don't log out
+          return;
+        }
+        // Any other error (403, 500 etc) — session is genuinely broken
+        setUser(null);
+      });
   }, []);
 
   const logout = async () => {
