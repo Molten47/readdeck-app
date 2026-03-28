@@ -1,30 +1,32 @@
 export interface SignupRequest {
   username: string;
-  email: string;
+  email:    string;
   password: string;
 }
 
 export interface LoginRequest {
-  email: string;
+  email:    string;
   password: string;
 }
 
-export interface AuthUser {
-  user_id: string;
-  username: string;
-  email: string;
+export interface AuthResponse {
+  user_id:      string;
+  username:     string;
+  email:        string;
+  role:         string;
+  access_token: string;
 }
 
-export interface AuthResponse extends AuthUser {}
-
 export interface RefreshResponse {
-  user_id: string;
-  username: string;
+  user_id:      string;
+  username:     string;
+  access_token: string;
 }
 
 export interface MeResponse {
-  user_id:  string;
-  username: string;
-  email:    string;
-  role:     string;   // 'reader' | 'vendor' | 'admin'
+  user_id:    string;
+  username:   string;
+  email:      string;
+  role:       string;
+  created_at: string;
 }

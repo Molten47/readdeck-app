@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
 import { logout as logoutApi } from '../auth/auth';
-import { silentAxios } from '../api/axiosInstance';
+import { silentAxios }         from '../api/axiosInstance';
+import { getToken, setToken, clearToken } from '../api/interceptor';
 import type { MeResponse } from '../types/auth';
 
 interface AuthContextType {
@@ -25,7 +26,7 @@ function readCache(): MeResponse | null {
 
 function writeCache(user: MeResponse | null) {
   if (user) localStorage.setItem(CACHE_KEY, JSON.stringify(user));
-  else localStorage.removeItem(CACHE_KEY);
+  else       localStorage.removeItem(CACHE_KEY);
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -42,24 +43,29 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   useEffect(() => {
-    // Use silentAxios — a 401 here must NOT trigger the interceptor logout
-    // On mobile, cookies may not persist, so getMe() failing is expected
-    // We only clear the user if we get a definitive non-401 failure
-    silentAxios.get<MeResponse>('/auth/me')
+    const token = getToken();
+    if (!token && !cached) return; // nothing to revalidate
+
+    // Use silentAxios with manual Bearer header — bypasses interceptor logout
+    silentAxios.get<MeResponse>('/auth/me', {
+      headers: token ? { Authorization: `Bearer ${token}` } : {},
+    })
       .then(res => setUser(res.data))
       .catch(err => {
         const status = err?.response?.status;
         if (status === 401 || status === undefined) {
-          // Cookie missing or network issue — keep cached user, don't log out
+          // Cookie/token missing or network blip — keep cache, stay logged in
           return;
         }
-        // Any other error (403, 500 etc) — session is genuinely broken
+        // Genuine failure — clear everything
+        clearToken();
         setUser(null);
       });
   }, []);
 
   const logout = async () => {
     await logoutApi();
+    clearToken();
     setUser(null);
     window.location.href = '/login';
   };

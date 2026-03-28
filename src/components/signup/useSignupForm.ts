@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSignup } from '../../hooks/useSignup';
 import { useAuth } from '../../context/AuthContext';
 import type { MeResponse } from '../../types/auth';
+import { setToken } from '../../api/interceptor';
 
 interface SignupFormData {
   username: string;
@@ -55,26 +56,30 @@ export const useSignupForm = () => {
     return Object.keys(errors).length === 0;
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!validate()) return;
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  if (!validate()) return;
 
-    const response = await signup({
-      username: formData.username,
-      email: formData.email,
-      password: formData.password,
+  const response = await signup({
+    username: formData.username,
+    email:    formData.email,
+    password: formData.password,
+  });
+
+  if (response) {
+    // Store the access token for Bearer auth
+    setToken(response.access_token);
+
+    setUser({
+      user_id:    response.user_id,
+      username:   response.username,
+      email:      response.email,
+      role:       response.role,
+      created_at: new Date().toISOString(),
     });
-
-    if (response) {
-      setUser({ 
-        user_id: response.user_id,
-        username: response.username,
-        email: response.email,
-        created_at: new Date().toISOString(),
-      } as unknown as MeResponse);
-      navigate('/dashboard')
-    }
-  };
+    navigate('/dashboard');
+  }
+};
 
   return { formData, formErrors, handleChange, handleSubmit, loading, error, success };
 };

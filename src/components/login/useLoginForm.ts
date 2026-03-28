@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLogin } from '../../hooks/useLogin';
 import { useAuth } from '../../context/AuthContext';
-import type { MeResponse } from '../../types/auth';
+//import type { MeResponse } from '../../types/auth';
+ import { setToken } from '../../api/interceptor';
 
 interface LoginFormData {
   email: string;
@@ -40,22 +41,26 @@ export const useLoginForm = () => {
     return Object.keys(errors).length === 0;
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!validate()) return;
+ const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  if (!validate()) return;
 
-    const response = await login(formData);
+  const response = await login(formData);
 
-    if (response) {
-      setUser({
-        user_id: response.user_id,
-        username: response.username,
-        email: response.email,
-        created_at: new Date().toISOString(),
-      } as unknown as MeResponse);
-      navigate('/dashboard')
-    }
-  };
+  if (response) {
+    // Store the access token for Bearer auth
+    setToken(response.access_token);
+
+    setUser({
+      user_id:    response.user_id,
+      username:   response.username,
+      email:      response.email,
+      role:       response.role,
+      created_at: new Date().toISOString(),
+    });
+    navigate('/dashboard');
+  }
+};
 
   return { formData, formErrors, handleChange, handleSubmit, loading, error, success };
 };
