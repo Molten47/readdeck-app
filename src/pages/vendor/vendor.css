@@ -192,6 +192,7 @@
 /* ── Main ── */
 .vd-main {
   flex:     1;
+  min-width: 0;
   overflow: auto;
 }
 
@@ -200,6 +201,7 @@
   max-width: 56rem;
   margin:    0 auto;
   padding:   2rem 1.5rem 4rem;
+  width:     100%;
 }
 .vd-page--center {
   display:         flex;

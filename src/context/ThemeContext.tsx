@@ -19,10 +19,11 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     return (localStorage.getItem('readdeck-theme') as Theme) || 'dark';
   });
 
-  useEffect(() => {
-    localStorage.setItem('readdeck-theme', theme);
-    document.documentElement.setAttribute('data-theme', theme);
-  }, [theme]);
+useEffect(() => {
+  localStorage.setItem('readdeck-theme', theme);
+  document.documentElement.setAttribute('data-theme', theme);
+  document.documentElement.classList.toggle('dark', theme === 'dark');
+}, [theme]);
 
   const toggleTheme = () => setTheme(t => t === 'dark' ? 'light' : 'dark');
 
